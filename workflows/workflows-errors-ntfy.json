@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "a9bd0d78-fbba-45f4-918b-fd842b53d065",
+    "versionId": "b61f61e3-c423-494d-9f30-e3903458d39b",
     "workflowId": "6YeRd2MBpoIleUlj",
     "nodes": [
       {
@@ -18,9 +18,13 @@
       {
         "parameters": {
           "topic": "n8n",
-          "title": "n8n-alerts",
+          "title": "={{ $json.workflow.name }} falló",
           "tags": {},
-          "additionalOptions": {}
+          "additionalOptions": {
+            "click": "={{ $json.execution?.url ?? '' }}"
+          },
+          "priority": 4,
+          "message": "=Nodo: {{ $json.execution?.lastNodeExecuted ?? 'trigger' }}\n{{ $json.execution?.error?.message ?? $json.trigger?.error?.message ?? 'sin mensaje' }}\n{{ ($json.execution?.error?.description ?? '').replace(/<[^>]+>/g, ' ').slice(0, 200) }}"
         },
         "type": "@jyln/n8n-nodes-ntfy.ntfy",
         "typeVersion": 1,
@@ -52,14 +56,14 @@
       }
     },
     "nodeGroups": [],
-    "authors": "D C",
-    "name": "Version a9bd0d78",
-    "description": "",
-    "autosaved": true,
-    "createdAt": "2026-10-23T18:25:18.268Z",
-    "updatedAt": "2026-10-23T18:25:36.543Z"
+    "authors": "D C (via MCP)",
+    "name": "Alert with workflow, node, error and link",
+    "description": "Updated nodes: NTFY",
+    "autosaved": false,
+    "createdAt": "2026-11-04T14:07:16.111Z",
+    "updatedAt": "2026-11-04T14:07:16.111Z"
   },
-  "activeVersionId": "a9bd0d78-fbba-45f4-918b-fd842b53d065",
+  "activeVersionId": "b61f61e3-c423-494d-9f30-e3903458d39b",
   "connections": {
     "Error Trigger": {
       "main": [
@@ -77,7 +81,9 @@
   "id": "6YeRd2MBpoIleUlj",
   "isArchived": false,
   "meta": {
-    "templateCredsSetupCompleted": true
+    "templateCredsSetupCompleted": true,
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
   },
   "name": "workflows-errors-ntfy",
   "nodeGroups": [],
@@ -96,9 +102,13 @@
     {
       "parameters": {
         "topic": "n8n",
-        "title": "n8n-alerts",
+        "title": "={{ $json.workflow.name }} falló",
         "tags": {},
-        "additionalOptions": {}
+        "additionalOptions": {
+          "click": "={{ $json.execution?.url ?? '' }}"
+        },
+        "priority": 4,
+        "message": "=Nodo: {{ $json.execution?.lastNodeExecuted ?? 'trigger' }}\n{{ $json.execution?.error?.message ?? $json.trigger?.error?.message ?? 'sin mensaje' }}\n{{ ($json.execution?.error?.description ?? '').replace(/<[^>]+>/g, ' ').slice(0, 200) }}"
       },
       "type": "@jyln/n8n-nodes-ntfy.ntfy",
       "typeVersion": 1,
@@ -116,7 +126,6 @@
       }
     }
   ],
-  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
@@ -136,19 +145,19 @@
   "staticData": null,
   "tags": [
     {
-      "id": "GJnnFcTPQ7zQJcdw",
-      "name": "ntfy",
-      "createdAt": "2026-08-14T20:16:17.841Z",
-      "updatedAt": "2026-08-14T20:16:17.841Z"
-    },
-    {
       "id": "ymjfgEEEwMyXBYBl",
       "name": "nautas",
       "createdAt": "2026-07-19T15:10:46.434Z",
       "updatedAt": "2026-07-19T15:10:46.434Z"
+    },
+    {
+      "id": "GJnnFcTPQ7zQJcdw",
+      "name": "ntfy",
+      "createdAt": "2026-08-14T20:16:17.841Z",
+      "updatedAt": "2026-08-14T20:16:17.841Z"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-10-23T18:25:50.415Z",
-  "versionId": "a9bd0d78-fbba-45f4-918b-fd842b53d065"
+  "updatedAt": "2026-11-04T14:07:16.109Z",
+  "versionId": "b61f61e3-c423-494d-9f30-e3903458d39b"
 }
