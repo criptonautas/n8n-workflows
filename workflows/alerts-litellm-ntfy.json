@@ -7,7 +7,7 @@
       {
         "parameters": {
           "httpMethod": "POST",
-          "path": "litellm-alerts",
+          "path": "redacted",
           "options": {}
         },
         "id": "d2c8038f-d454-436d-a2c9-712f4e1a8c0d",
@@ -17,8 +17,7 @@
         "position": [
           0,
           0
-        ],
-        "webhookId": "litellm-alerts-webhook"
+        ]
       },
       {
         "parameters": {
