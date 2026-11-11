@@ -488,7 +488,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "curso-artifacts",
+        "path": "redacted",
         "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
@@ -501,7 +501,6 @@
         0,
         144
       ],
-      "webhookId": "b9c2af0d-fb34-4887-911d-f5fe571da66e",
       "credentials": {
         "httpHeaderAuth": {
           "id": "lYhTKDSTayb0tyu4",
@@ -768,7 +767,6 @@
       ]
     }
   ],
-  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
