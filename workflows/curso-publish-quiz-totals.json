@@ -252,8 +252,7 @@
           "amount": 1,
           "unit": "seconds"
         },
-        "notes": "Espacia los quizzes para no superar el límite de la API de Discourse.",
-        "webhookId": "8b78d202-29f6-4e1c-8a4f-b8df7708d851"
+        "notes": "Espacia los quizzes para no superar el límite de la API de Discourse."
       }
     ],
     "connections": {
