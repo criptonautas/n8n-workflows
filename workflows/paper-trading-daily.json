@@ -687,7 +687,6 @@
       "notes": "Why Code: writes workflow static data (topicId of the group message), which no native node can do."
     }
   ],
-  "pinData": null,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
