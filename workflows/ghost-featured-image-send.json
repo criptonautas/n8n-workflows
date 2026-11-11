@@ -7,7 +7,7 @@
       {
         "parameters": {
           "httpMethod": "POST",
-          "path": "ghost-featured-image-FuTT6U8wHovAaH9csHBmPN0X",
+          "path": "redacted",
           "options": {}
         },
         "id": "3eed361d-47b2-4797-b850-089b64d42bea",
@@ -17,8 +17,7 @@
         "position": [
           -32,
           -160
-        ],
-        "webhookId": "297802d0-e9d6-4597-9066-a1ddda10f550"
+        ]
       },
       {
         "parameters": {
