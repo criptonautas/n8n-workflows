@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "23d03f46-a621-4287-bb78-e5995ab6145a",
+    "versionId": "fa80f891-b139-4829-b623-8c1eeef22aa8",
     "workflowId": "HEdpSdE8bIh3c1RZ",
     "nodes": [
       {
@@ -915,6 +915,22 @@
           "errorType": "errorMessage",
           "errorMessage": "=Source check failed for {{ $('Normalize Event').first().json.id }}: {{ $json.errors?.[0]?.type ?? $json.error?.message ?? $json.error ?? 'unexpected response' }}"
         }
+      },
+      {
+        "id": "3247b67b-c574-4d27-af1c-21762d17c5a8",
+        "name": "Ghost Webhook New",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.2,
+        "position": [
+          0,
+          760
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "responseMode": "onReceived",
+          "options": {}
+        }
       }
     ],
     "connections": {
@@ -1164,17 +1180,28 @@
             }
           ]
         ]
+      },
+      "Ghost Webhook New": {
+        "main": [
+          [
+            {
+              "node": "Normalize Event",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "nodeGroups": [],
     "authors": "D C (via MCP)",
-    "name": "Skip home: English landing is hand-edited",
-    "description": "Updated nodes: Route Event",
+    "name": "New webhook URL alongside the old one",
+    "description": "Added nodes: Ghost Webhook New\nConnections: 1 added, 0 removed",
     "autosaved": false,
-    "createdAt": "2026-11-02T03:38:25.555Z",
-    "updatedAt": "2026-11-02T03:38:25.555Z"
+    "createdAt": "2026-11-11T20:45:11.050Z",
+    "updatedAt": "2026-11-11T20:45:11.050Z"
   },
-  "activeVersionId": "23d03f46-a621-4287-bb78-e5995ab6145a",
+  "activeVersionId": "fa80f891-b139-4829-b623-8c1eeef22aa8",
   "connections": {
     "Ghost Webhook": {
       "main": [
@@ -1417,6 +1444,17 @@
         [
           {
             "node": "Source Check Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ghost Webhook New": {
+      "main": [
+        [
+          {
+            "node": "Normalize Event",
             "type": "main",
             "index": 0
           }
@@ -2345,6 +2383,22 @@
         "errorType": "errorMessage",
         "errorMessage": "=Source check failed for {{ $('Normalize Event').first().json.id }}: {{ $json.errors?.[0]?.type ?? $json.error?.message ?? $json.error ?? 'unexpected response' }}"
       }
+    },
+    {
+      "id": "3247b67b-c574-4d27-af1c-21762d17c5a8",
+      "name": "Ghost Webhook New",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        760
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "responseMode": "onReceived",
+        "options": {}
+      }
     }
   ],
   "settings": {
@@ -2362,8 +2416,15 @@
     }
   ],
   "staticData": null,
-  "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2026-11-02T03:38:25.549Z",
-  "versionId": "23d03f46-a621-4287-bb78-e5995ab6145a"
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2026-11-11T20:45:11.049Z",
+  "versionId": "fa80f891-b139-4829-b623-8c1eeef22aa8"
 }
