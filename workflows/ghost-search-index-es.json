@@ -1276,8 +1276,15 @@
     }
   ],
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2026-10-31T04:06:54.670Z",
+  "updatedAt": "2026-11-11T20:41:52.264Z",
   "versionId": "a3454798-1577-4887-81a3-570730766b54"
 }
