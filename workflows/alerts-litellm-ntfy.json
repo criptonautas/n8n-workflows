@@ -159,7 +159,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "litellm-alerts",
+        "path": "redacted",
         "options": {}
       },
       "id": "d2c8038f-d454-436d-a2c9-712f4e1a8c0d",
@@ -169,8 +169,7 @@
       "position": [
         0,
         0
-      ],
-      "webhookId": "litellm-alerts-webhook"
+      ]
     },
     {
       "parameters": {
@@ -244,7 +243,6 @@
       ]
     }
   ],
-  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
@@ -262,10 +260,10 @@
   "staticData": null,
   "tags": [
     {
-      "id": "zteglN9EqJ3nhEv6",
-      "name": "AI",
-      "createdAt": "2026-02-25T07:28:36.855Z",
-      "updatedAt": "2026-02-25T07:28:36.855Z"
+      "id": "GJnnFcTPQ7zQJcdw",
+      "name": "ntfy",
+      "createdAt": "2026-08-14T20:16:17.841Z",
+      "updatedAt": "2026-08-14T20:16:17.841Z"
     },
     {
       "id": "ymjfgEEEwMyXBYBl",
@@ -280,10 +278,10 @@
       "updatedAt": "2026-07-19T15:21:36.085Z"
     },
     {
-      "id": "GJnnFcTPQ7zQJcdw",
-      "name": "ntfy",
-      "createdAt": "2026-08-14T20:16:17.841Z",
-      "updatedAt": "2026-08-14T20:16:17.841Z"
+      "id": "zteglN9EqJ3nhEv6",
+      "name": "AI",
+      "createdAt": "2026-02-25T07:28:36.855Z",
+      "updatedAt": "2026-02-25T07:28:36.855Z"
     }
   ],
   "triggerCount": 1,
