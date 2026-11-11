@@ -15,11 +15,10 @@
         ],
         "parameters": {
           "httpMethod": "POST",
-          "path": "ghost-translate-eeac4ee26c9c7a626211ea450fba8455",
+          "path": "redacted",
           "responseMode": "onReceived",
           "options": {}
-        },
-        "webhookId": "35db8408-8514-4e0a-9c97-f7099b3220be"
+        }
       },
       {
         "id": "f1ec130a-c346-412b-b261-c1e096f0fe22",
@@ -94,8 +93,7 @@
           "resume": "timeInterval",
           "amount": 15,
           "unit": "seconds"
-        },
-        "webhookId": "031c2aca-8ddf-49e3-ad8b-d465a0873954"
+        }
       },
       {
         "id": "89b8c6b3-6934-42fa-8e8d-f4367fbf6bdc",
