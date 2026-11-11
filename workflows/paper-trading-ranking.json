@@ -1187,7 +1187,6 @@
       "waitBetweenTries": 5000
     }
   ],
-  "pinData": null,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
