@@ -530,14 +530,13 @@
       ],
       "parameters": {
         "httpMethod": "GET",
-        "path": "estado",
+        "path": "redacted",
         "authentication": "none",
         "responseMode": "responseNode",
         "options": {
           "allowedOrigins": "https://criptonautas.co"
         }
-      },
-      "webhookId": "19744071-5108-4777-b6c5-a508541c7496"
+      }
     },
     {
       "id": "7749b381-6650-4f15-b486-a2bf98f07bb7",
@@ -587,7 +586,6 @@
       }
     }
   ],
-  "pinData": null,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
