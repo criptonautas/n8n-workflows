@@ -3428,8 +3428,15 @@
     }
   ],
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
   "triggerCount": 0,
-  "updatedAt": "2026-11-04T15:53:48.593Z",
+  "updatedAt": "2026-11-11T20:41:55.134Z",
   "versionId": "5825cc9d-e0b3-402b-85ed-d9bd1ee1fa5f"
 }
