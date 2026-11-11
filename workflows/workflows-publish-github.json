@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "43dfc820-a035-4f9a-a695-7208a124cb76",
+    "versionId": "750cd112-48c6-4e13-9282-daf2e7546b3e",
     "workflowId": "1lmEvob5q0TP8qoT",
     "nodes": [
       {
@@ -34,7 +34,6 @@
         ],
         "typeVersion": 1,
         "alwaysOutputData": true,
-        "webhookId": "8f9e66f8-5d60-4a46-8bec-3968a9c826c6",
         "credentials": {
           "githubApi": {
             "id": "IbGFQoK8VybLINhE",
@@ -94,7 +93,6 @@
           784
         ],
         "typeVersion": 1,
-        "webhookId": "f46fe64d-db1b-4616-9a56-458fbad7c11a",
         "credentials": {
           "githubApi": {
             "id": "IbGFQoK8VybLINhE",
@@ -119,7 +117,6 @@
           960
         ],
         "typeVersion": 1,
-        "webhookId": "28df2036-d03c-4411-b8e2-1936a55c6077",
         "credentials": {
           "githubApi": {
             "id": "IbGFQoK8VybLINhE",
@@ -286,7 +283,7 @@
         ],
         "parameters": {
           "mode": "runOnceForAllItems",
-          "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nreturn $input.all().map((item) => {\n  const wf = JSON.parse(JSON.stringify(item.json));\n  delete wf.pinData;\n  for (const node of wf.nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n  return { json: wf };\n});"
+          "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
         },
         "notes": "Why Code: deep-clean of every node in each workflow. Webhook paths act as passwords, so they never reach the public repo."
       },
@@ -520,13 +517,13 @@
     },
     "nodeGroups": [],
     "authors": "D C (via MCP)",
-    "name": "Restore working github_status switch",
-    "description": "Added nodes: github_status\nRemoved nodes: github_status",
+    "name": "Redact activeVersion too, skip archived",
+    "description": "Updated nodes: Redact",
     "autosaved": false,
-    "createdAt": "2026-11-11T19:51:39.977Z",
-    "updatedAt": "2026-11-11T19:51:39.977Z"
+    "createdAt": "2026-11-11T19:52:57.001Z",
+    "updatedAt": "2026-11-11T19:52:57.001Z"
   },
-  "activeVersionId": "43dfc820-a035-4f9a-a695-7208a124cb76",
+  "activeVersionId": "750cd112-48c6-4e13-9282-daf2e7546b3e",
   "connections": {
     "new": {
       "main": [
@@ -1014,7 +1011,7 @@
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nreturn $input.all().map((item) => {\n  const wf = JSON.parse(JSON.stringify(item.json));\n  delete wf.pinData;\n  for (const node of wf.nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n  return { json: wf };\n});"
+        "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
       },
       "notes": "Why Code: deep-clean of every node in each workflow. Webhook paths act as passwords, so they never reach the public repo."
     },
@@ -1083,6 +1080,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-11-11T19:51:39.974Z",
-  "versionId": "43dfc820-a035-4f9a-a695-7208a124cb76"
+  "updatedAt": "2026-11-11T19:52:56.997Z",
+  "versionId": "750cd112-48c6-4e13-9282-daf2e7546b3e"
 }
