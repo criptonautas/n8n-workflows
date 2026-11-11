@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "dba475f4-0c9f-4018-b219-0421c55c6600",
+    "versionId": "a20d8547-e1b0-46c4-99c7-f1b8a0a98444",
     "workflowId": "8Ad7YALJ8uw43dGj",
     "nodes": [
       {
@@ -255,7 +255,7 @@
               {
                 "name": "ref",
                 "parameterType": "formData",
-                "value": "={{ $(\"skip-processed\").item.json.slug }}-brand.png"
+                "value": "={{ $(\"skip-processed\").item.json.slug }}-brand.webp"
               }
             ]
           },
@@ -922,13 +922,13 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "Read webhook post from Ghost instead of trusting the body",
-    "description": "Security fix matching n8n-workflows PR #1. Only the hex post id comes from the unauthenticated webhook body; the post is read from criptonautas.co and ghost_url is a constant, so a forged call can no longer send the Ghost Admin credential to another host.",
+    "name": "Upload ref as .webp (filter now returns WebP)",
+    "description": "Updated nodes: upload-image-ghost",
     "autosaved": false,
-    "createdAt": "2026-10-30T08:31:04.480Z",
-    "updatedAt": "2026-10-30T08:31:04.480Z"
+    "createdAt": "2026-11-10T19:18:15.803Z",
+    "updatedAt": "2026-11-10T19:18:15.803Z"
   },
-  "activeVersionId": "dba475f4-0c9f-4018-b219-0421c55c6600",
+  "activeVersionId": "a20d8547-e1b0-46c4-99c7-f1b8a0a98444",
   "connections": {
     "extract-post-fields": {
       "main": [
@@ -1151,7 +1151,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "ghost-featured-image-FuTT6U8wHovAaH9csHBmPN0X",
+        "path": "redacted",
         "options": {}
       },
       "id": "3eed361d-47b2-4797-b850-089b64d42bea",
@@ -1161,8 +1161,7 @@
       "position": [
         -32,
         -160
-      ],
-      "webhookId": "297802d0-e9d6-4597-9066-a1ddda10f550"
+      ]
     },
     {
       "parameters": {
@@ -1399,7 +1398,7 @@
             {
               "name": "ref",
               "parameterType": "formData",
-              "value": "={{ $(\"skip-processed\").item.json.slug }}-brand.png"
+              "value": "={{ $(\"skip-processed\").item.json.slug }}-brand.webp"
             }
           ]
         },
@@ -1855,7 +1854,6 @@
       "waitBetweenTries": 5000
     }
   ],
-  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -1884,6 +1882,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-10-30T08:31:04.478Z",
-  "versionId": "dba475f4-0c9f-4018-b219-0421c55c6600"
+  "updatedAt": "2026-11-10T19:18:15.797Z",
+  "versionId": "a20d8547-e1b0-46c4-99c7-f1b8a0a98444"
 }
