@@ -1049,8 +1049,15 @@
       ]
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
   "triggerCount": 1,
-  "updatedAt": "2026-11-04T15:57:20.329Z",
+  "updatedAt": "2026-11-11T20:41:53.705Z",
   "versionId": "5aa2c9a2-0b27-43c2-b5b2-b55e7edae3e3"
 }
