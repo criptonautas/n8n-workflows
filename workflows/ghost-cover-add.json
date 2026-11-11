@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "453bf0fb-e52e-40a2-aba8-d0faef8475df",
+    "versionId": "2d8ac744-498c-451f-94cd-e5b2b866e982",
     "workflowId": "mbIpe7751DqGVraW",
     "nodes": [
       {
@@ -201,6 +201,23 @@
             "name": "nautas-ghost-api"
           }
         }
+      },
+      {
+        "id": "ca027d5a-4cd0-4b7f-a33f-851eab0b7b23",
+        "name": "ghost-post-published-new",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.2,
+        "position": [
+          0,
+          200
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "options": {
+            "noResponseBody": true
+          }
+        }
       }
     ],
     "connections": {
@@ -269,6 +286,17 @@
             }
           ]
         ]
+      },
+      "ghost-post-published-new": {
+        "main": [
+          [
+            {
+              "node": "post-id",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "nodeGroups": [
@@ -283,13 +311,13 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "Point to criptonautas-featured-cover",
-    "description": "Updated nodes: generate-cover",
+    "name": "New webhook URL alongside the old one",
+    "description": "Added nodes: ghost-post-published-new\nConnections: 1 added, 0 removed",
     "autosaved": false,
-    "createdAt": "2026-10-28T16:01:00.446Z",
-    "updatedAt": "2026-10-28T16:01:00.446Z"
+    "createdAt": "2026-11-11T20:45:07.801Z",
+    "updatedAt": "2026-11-11T20:45:07.801Z"
   },
-  "activeVersionId": "453bf0fb-e52e-40a2-aba8-d0faef8475df",
+  "activeVersionId": "2d8ac744-498c-451f-94cd-e5b2b866e982",
   "connections": {
     "ghost-post-published": {
       "main": [
@@ -351,6 +379,17 @@
         [
           {
             "node": "set-featured-image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ghost-post-published-new": {
+      "main": [
+        [
+          {
+            "node": "post-id",
             "type": "main",
             "index": 0
           }
@@ -575,6 +614,23 @@
           "name": "nautas-ghost-api"
         }
       }
+    },
+    {
+      "id": "ca027d5a-4cd0-4b7f-a33f-851eab0b7b23",
+      "name": "ghost-post-published-new",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "options": {
+          "noResponseBody": true
+        }
+      }
     }
   ],
   "settings": {
@@ -605,7 +661,7 @@
       "updatedAt": "2026-07-19T15:29:32.896Z"
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2026-10-28T16:01:00.439Z",
-  "versionId": "453bf0fb-e52e-40a2-aba8-d0faef8475df"
+  "triggerCount": 2,
+  "updatedAt": "2026-11-11T20:45:07.799Z",
+  "versionId": "2d8ac744-498c-451f-94cd-e5b2b866e982"
 }
