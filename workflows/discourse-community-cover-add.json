@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "1c222338-9e1d-428a-8fd9-cad7a24842fd",
+    "versionId": "326194b0-0919-48af-b0ff-31090bd4f257",
     "workflowId": "rJ4Bdm5CYnWADTxC",
     "nodes": [
       {
@@ -582,6 +582,21 @@
         "retryOnFail": true,
         "maxTries": 5,
         "waitBetweenTries": 5000
+      },
+      {
+        "id": "5567947f-59d9-4cd9-9652-d64868e6d423",
+        "name": "discourse-topic-event-new",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.2,
+        "position": [
+          448,
+          392
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "options": {}
+        }
       }
     ],
     "connections": {
@@ -767,6 +782,17 @@
             }
           ]
         ]
+      },
+      "discourse-topic-event-new": {
+        "main": [
+          [
+            {
+              "node": "topic-from-event",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "nodeGroups": [
@@ -807,13 +833,13 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "Read event topic from Discourse instead of trusting the body",
-    "description": "Security fix matching n8n-workflows PR #1. Only the integer topic id comes from the unauthenticated webhook body; title, category and tags are read from Discourse before pick-label.",
+    "name": "New webhook URL alongside the old one",
+    "description": "Added nodes: discourse-topic-event-new\nConnections: 1 added, 0 removed",
     "autosaved": false,
-    "createdAt": "2026-10-30T08:31:05.778Z",
-    "updatedAt": "2026-10-30T08:31:05.778Z"
+    "createdAt": "2026-11-11T20:45:12.702Z",
+    "updatedAt": "2026-11-11T20:45:12.702Z"
   },
-  "activeVersionId": "1c222338-9e1d-428a-8fd9-cad7a24842fd",
+  "activeVersionId": "326194b0-0919-48af-b0ff-31090bd4f257",
   "connections": {
     "discourse-topic-event": {
       "main": [
@@ -992,6 +1018,17 @@
         [
           {
             "node": "pick-label",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "discourse-topic-event-new": {
+      "main": [
+        [
+          {
+            "node": "topic-from-event",
             "type": "main",
             "index": 0
           }
@@ -1623,6 +1660,21 @@
       "retryOnFail": true,
       "maxTries": 5,
       "waitBetweenTries": 5000
+    },
+    {
+      "id": "5567947f-59d9-4cd9-9652-d64868e6d423",
+      "name": "discourse-topic-event-new",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        392
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "options": {}
+      }
     }
   ],
   "settings": {
@@ -1650,7 +1702,7 @@
       "updatedAt": "2023-12-16T00:20:30.575Z"
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2026-10-30T08:31:05.774Z",
-  "versionId": "1c222338-9e1d-428a-8fd9-cad7a24842fd"
+  "triggerCount": 2,
+  "updatedAt": "2026-11-11T20:45:12.701Z",
+  "versionId": "326194b0-0919-48af-b0ff-31090bd4f257"
 }
