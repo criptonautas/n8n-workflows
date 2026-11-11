@@ -7,7 +7,7 @@
       {
         "parameters": {
           "httpMethod": "POST",
-          "path": "f3a9c1d7-cover-5b2e",
+          "path": "redacted",
           "options": {
             "noResponseBody": true
           }
@@ -19,8 +19,7 @@
         "position": [
           0,
           0
-        ],
-        "webhookId": "925d4a6b-ea5f-4183-8d74-e58c60ea96e8"
+        ]
       },
       {
         "parameters": {
