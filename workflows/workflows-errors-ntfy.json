@@ -145,19 +145,13 @@
   "staticData": null,
   "tags": [
     {
-      "id": "ymjfgEEEwMyXBYBl",
-      "name": "nautas",
-      "createdAt": "2026-07-19T15:10:46.434Z",
-      "updatedAt": "2026-07-19T15:10:46.434Z"
-    },
-    {
-      "id": "GJnnFcTPQ7zQJcdw",
-      "name": "ntfy",
-      "createdAt": "2026-08-14T20:16:17.841Z",
-      "updatedAt": "2026-08-14T20:16:17.841Z"
+      "id": "WXjrTxK1jA62xwca",
+      "name": "ops",
+      "createdAt": "2026-11-11T20:41:45.761Z",
+      "updatedAt": "2026-11-11T20:41:45.761Z"
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2026-11-04T14:07:16.109Z",
+  "updatedAt": "2026-11-11T20:41:50.629Z",
   "versionId": "b61f61e3-c423-494d-9f30-e3903458d39b"
 }
