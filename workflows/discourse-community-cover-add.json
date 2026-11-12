@@ -1,24 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "326194b0-0919-48af-b0ff-31090bd4f257",
+    "versionId": "5db47b4b-5921-49cc-8385-48ad53169d30",
     "workflowId": "rJ4Bdm5CYnWADTxC",
     "nodes": [
-      {
-        "id": "b8bcb942-b274-4b42-9b2b-772568b6c0cf",
-        "name": "discourse-topic-event",
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2.2,
-        "position": [
-          448,
-          192
-        ],
-        "parameters": {
-          "httpMethod": "POST",
-          "path": "redacted",
-          "options": {}
-        }
-      },
       {
         "id": "0790d42a-92ae-418f-aa66-d4ae1ab09938",
         "name": "topic-from-event",
@@ -585,7 +570,7 @@
       },
       {
         "id": "5567947f-59d9-4cd9-9652-d64868e6d423",
-        "name": "discourse-topic-event-new",
+        "name": "discourse-topic-event",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2.2,
         "position": [
@@ -600,17 +585,6 @@
       }
     ],
     "connections": {
-      "discourse-topic-event": {
-        "main": [
-          [
-            {
-              "node": "topic-from-event",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "pick-label": {
         "main": [
           [
@@ -783,7 +757,7 @@
           ]
         ]
       },
-      "discourse-topic-event-new": {
+      "discourse-topic-event": {
         "main": [
           [
             {
@@ -833,25 +807,14 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "New webhook URL alongside the old one",
-    "description": "Added nodes: discourse-topic-event-new\nConnections: 1 added, 0 removed",
+    "name": "Drop the exposed webhook URL",
+    "description": "Removed nodes: discourse-topic-event\nUpdated nodes: discourse-topic-event\nConnections: 0 added, 1 removed",
     "autosaved": false,
-    "createdAt": "2026-11-11T20:45:12.702Z",
-    "updatedAt": "2026-11-11T20:45:12.702Z"
+    "createdAt": "2026-11-12T00:57:46.669Z",
+    "updatedAt": "2026-11-12T00:57:46.669Z"
   },
-  "activeVersionId": "326194b0-0919-48af-b0ff-31090bd4f257",
+  "activeVersionId": "5db47b4b-5921-49cc-8385-48ad53169d30",
   "connections": {
-    "discourse-topic-event": {
-      "main": [
-        [
-          {
-            "node": "topic-from-event",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "pick-label": {
       "main": [
         [
@@ -1024,7 +987,7 @@
         ]
       ]
     },
-    "discourse-topic-event-new": {
+    "discourse-topic-event": {
       "main": [
         [
           {
@@ -1082,21 +1045,6 @@
     }
   ],
   "nodes": [
-    {
-      "id": "b8bcb942-b274-4b42-9b2b-772568b6c0cf",
-      "name": "discourse-topic-event",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.2,
-      "position": [
-        448,
-        192
-      ],
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "redacted",
-        "options": {}
-      }
-    },
     {
       "id": "0790d42a-92ae-418f-aa66-d4ae1ab09938",
       "name": "topic-from-event",
@@ -1663,7 +1611,7 @@
     },
     {
       "id": "5567947f-59d9-4cd9-9652-d64868e6d423",
-      "name": "discourse-topic-event-new",
+      "name": "discourse-topic-event",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.2,
       "position": [
@@ -1702,7 +1650,7 @@
       "updatedAt": "2023-12-16T00:20:30.575Z"
     }
   ],
-  "triggerCount": 2,
-  "updatedAt": "2026-11-11T20:45:12.701Z",
-  "versionId": "326194b0-0919-48af-b0ff-31090bd4f257"
+  "triggerCount": 1,
+  "updatedAt": "2026-11-12T00:57:46.667Z",
+  "versionId": "5db47b4b-5921-49cc-8385-48ad53169d30"
 }
