@@ -16,6 +16,12 @@ named after it.
 - The backup never deletes: a workflow that is switched off or renamed leaves its old
   file here until someone removes it.
 
+## Reusing a workflow
+
+Import its JSON in n8n (Workflows → Import from file), create your own credentials with the
+names the nodes reference, and give each webhook a random path of your own. Hostnames such as
+`criptonautas-featured-cover:8000` are containers on our network: point them at your services.
+
 ## Workflows
 
 | Workflow | Trigger | What it does |

@@ -16,6 +16,12 @@ un archivo por workflow, con su nombre.
 - El backup nunca borra: si un workflow se apaga o se renombra, su archivo viejo queda
   acá hasta que alguien lo quite.
 
+## Reusar un workflow
+
+Importa su JSON en n8n (Workflows → Import from file), crea tus propias credenciales con los
+nombres que usan los nodos y dale a cada webhook una ruta aleatoria tuya. Los hosts como
+`criptonautas-featured-cover:8000` son contenedores de nuestra red: apúntalos a tus servicios.
+
 ## Workflows
 
 | Workflow | Disparador | Qué hace |
