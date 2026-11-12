@@ -1,24 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "09755778-1727-47cd-943e-9ec1bc5e716a",
+    "versionId": "02a25687-1787-42f1-b80f-960d69972cd2",
     "workflowId": "8Ad7YALJ8uw43dGj",
     "nodes": [
-      {
-        "parameters": {
-          "httpMethod": "POST",
-          "path": "redacted",
-          "options": {}
-        },
-        "id": "3eed361d-47b2-4797-b850-089b64d42bea",
-        "name": "ghost-post-changed",
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2.2,
-        "position": [
-          -32,
-          -160
-        ]
-      },
       {
         "parameters": {
           "assignments": {
@@ -711,7 +696,7 @@
       },
       {
         "id": "839bd6a5-1158-4f46-99fb-32d310aabb7e",
-        "name": "ghost-post-changed-new",
+        "name": "ghost-post-changed",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2.2,
         "position": [
@@ -876,17 +861,6 @@
           ]
         ]
       },
-      "ghost-post-changed": {
-        "main": [
-          [
-            {
-              "node": "read-webhook-post",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "read-webhook-post": {
         "main": [
           [
@@ -898,7 +872,7 @@
           ]
         ]
       },
-      "ghost-post-changed-new": {
+      "ghost-post-changed": {
         "main": [
           [
             {
@@ -947,13 +921,13 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "New webhook URL alongside the old one",
-    "description": "Added nodes: ghost-post-changed-new\nConnections: 1 added, 0 removed",
+    "name": "Drop the exposed webhook URL",
+    "description": "Removed nodes: ghost-post-changed\nUpdated nodes: ghost-post-changed\nConnections: 0 added, 1 removed",
     "autosaved": false,
-    "createdAt": "2026-11-11T20:45:09.560Z",
-    "updatedAt": "2026-11-11T20:45:09.560Z"
+    "createdAt": "2026-11-12T00:57:44.871Z",
+    "updatedAt": "2026-11-12T00:57:44.871Z"
   },
-  "activeVersionId": "09755778-1727-47cd-943e-9ec1bc5e716a",
+  "activeVersionId": "02a25687-1787-42f1-b80f-960d69972cd2",
   "connections": {
     "extract-post-fields": {
       "main": [
@@ -1105,17 +1079,6 @@
         ]
       ]
     },
-    "ghost-post-changed": {
-      "main": [
-        [
-          {
-            "node": "read-webhook-post",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "read-webhook-post": {
       "main": [
         [
@@ -1127,7 +1090,7 @@
         ]
       ]
     },
-    "ghost-post-changed-new": {
+    "ghost-post-changed": {
       "main": [
         [
           {
@@ -1184,21 +1147,6 @@
     }
   ],
   "nodes": [
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "redacted",
-        "options": {}
-      },
-      "id": "3eed361d-47b2-4797-b850-089b64d42bea",
-      "name": "ghost-post-changed",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.2,
-      "position": [
-        -32,
-        -160
-      ]
-    },
     {
       "parameters": {
         "assignments": {
@@ -1891,7 +1839,7 @@
     },
     {
       "id": "839bd6a5-1158-4f46-99fb-32d310aabb7e",
-      "name": "ghost-post-changed-new",
+      "name": "ghost-post-changed",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.2,
       "position": [
@@ -1932,7 +1880,7 @@
       "updatedAt": "2026-07-19T15:29:32.896Z"
     }
   ],
-  "triggerCount": 2,
-  "updatedAt": "2026-11-11T20:45:09.558Z",
-  "versionId": "09755778-1727-47cd-943e-9ec1bc5e716a"
+  "triggerCount": 1,
+  "updatedAt": "2026-11-12T00:57:44.869Z",
+  "versionId": "02a25687-1787-42f1-b80f-960d69972cd2"
 }
