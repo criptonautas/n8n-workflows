@@ -1,0 +1,274 @@
+{
+  "active": true,
+  "activeVersion": {
+    "versionId": "8b38f3b0-fc8a-4d02-8a94-a97fefb4e38b",
+    "workflowId": "8k8Mm4rEIpBkX5iK",
+    "nodes": [
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "field1",
+                "name": "ntfy_title",
+                "value": "={{ $json.body.event }}",
+                "type": "string"
+              },
+              {
+                "id": "field2",
+                "name": "ntfy_message",
+                "value": "={{ $json.body.event_message }}",
+                "type": "string"
+              },
+              {
+                "id": "field3",
+                "name": "ntfy_priority",
+                "value": "={{ ['llm_exceptions', 'db_exceptions'].includes($json.body.event) ? '5' : ['budget_alerts', 'llm_requests_hanging'].includes($json.body.event) ? '4' : ['llm_too_slow', 'cooldown_deployment'].includes($json.body.event) ? '3' : '2' }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "7efc0320-a415-44bc-bfcf-1b9870444eef",
+        "name": "Set Fields",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          224,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://ntfy.criptonautas.co/litellm",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Title",
+                "value": "={{ $json.ntfy_title }}"
+              },
+              {
+                "name": "Priority",
+                "value": "={{ $json.ntfy_priority }}"
+              },
+              {
+                "name": "Tags",
+                "value": "warning"
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "raw",
+          "rawContentType": "text/plain",
+          "body": "={{ $json.ntfy_message }}",
+          "options": {}
+        },
+        "id": "6a8fb4cf-4bfd-4843-b749-57c2b0e6ff50",
+        "name": "Send to ntfy",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          448,
+          0
+        ]
+      },
+      {
+        "id": "3825e2b2-f33f-4f39-b4ec-53f0f641a17f",
+        "name": "Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          0,
+          200
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "Set Fields": {
+        "main": [
+          [
+            {
+              "node": "Send to ntfy",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "Set Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "D C (via MCP)",
+    "name": "Drop the exposed webhook URL",
+    "description": "Removed nodes: Webhook\nUpdated nodes: Webhook\nConnections: 0 added, 1 removed",
+    "autosaved": false,
+    "createdAt": "2026-11-12T01:54:31.594Z",
+    "updatedAt": "2026-11-12T01:54:31.594Z"
+  },
+  "activeVersionId": "8b38f3b0-fc8a-4d02-8a94-a97fefb4e38b",
+  "connections": {
+    "Set Fields": {
+      "main": [
+        [
+          {
+            "node": "Send to ntfy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-19T14:49:59.733Z",
+  "id": "8k8Mm4rEIpBkX5iK",
+  "isArchived": false,
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "name": "litellm-alerts-ntfy",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "ntfy_title",
+              "value": "={{ $json.body.event }}",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "ntfy_message",
+              "value": "={{ $json.body.event_message }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "ntfy_priority",
+              "value": "={{ ['llm_exceptions', 'db_exceptions'].includes($json.body.event) ? '5' : ['budget_alerts', 'llm_requests_hanging'].includes($json.body.event) ? '4' : ['llm_too_slow', 'cooldown_deployment'].includes($json.body.event) ? '3' : '2' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7efc0320-a415-44bc-bfcf-1b9870444eef",
+      "name": "Set Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ntfy.criptonautas.co/litellm",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Title",
+              "value": "={{ $json.ntfy_title }}"
+            },
+            {
+              "name": "Priority",
+              "value": "={{ $json.ntfy_priority }}"
+            },
+            {
+              "name": "Tags",
+              "value": "warning"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/plain",
+        "body": "={{ $json.ntfy_message }}",
+        "options": {}
+      },
+      "id": "6a8fb4cf-4bfd-4843-b749-57c2b0e6ff50",
+      "name": "Send to ntfy",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "id": "3825e2b2-f33f-4f39-b4ec-53f0f641a17f",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "options": {}
+      }
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "shared": [
+    {
+      "role": "workflow:owner",
+      "workflowId": "8k8Mm4rEIpBkX5iK",
+      "projectId": "HXLppsMA2lbH4F4C",
+      "createdAt": "2026-07-19T14:49:59.733Z",
+      "updatedAt": "2026-07-19T14:49:59.733Z"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "id": "WXjrTxK1jA62xwca",
+      "name": "ops",
+      "createdAt": "2026-11-11T20:41:45.761Z",
+      "updatedAt": "2026-11-11T20:41:45.761Z"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-11-12T02:32:37.193Z",
+  "versionId": "8b38f3b0-fc8a-4d02-8a94-a97fefb4e38b"
+}
