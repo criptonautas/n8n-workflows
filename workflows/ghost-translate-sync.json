@@ -1,25 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "fa80f891-b139-4829-b623-8c1eeef22aa8",
+    "versionId": "282da96d-f6ac-4863-89ef-fa347d178abb",
     "workflowId": "HEdpSdE8bIh3c1RZ",
     "nodes": [
-      {
-        "id": "c00ec7d0-687e-407b-89a5-a8adc9471fd2",
-        "name": "Ghost Webhook",
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2.2,
-        "position": [
-          0,
-          560
-        ],
-        "parameters": {
-          "httpMethod": "POST",
-          "path": "redacted",
-          "responseMode": "onReceived",
-          "options": {}
-        }
-      },
       {
         "id": "f1ec130a-c346-412b-b261-c1e096f0fe22",
         "name": "Normalize Event",
@@ -918,7 +902,7 @@
       },
       {
         "id": "3247b67b-c574-4d27-af1c-21762d17c5a8",
-        "name": "Ghost Webhook New",
+        "name": "Ghost Webhook",
         "type": "n8n-nodes-base.webhook",
         "typeVersion": 2.2,
         "position": [
@@ -934,17 +918,6 @@
       }
     ],
     "connections": {
-      "Ghost Webhook": {
-        "main": [
-          [
-            {
-              "node": "Normalize Event",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "Debounce": {
         "main": [
           [
@@ -1181,7 +1154,7 @@
           ]
         ]
       },
-      "Ghost Webhook New": {
+      "Ghost Webhook": {
         "main": [
           [
             {
@@ -1195,25 +1168,14 @@
     },
     "nodeGroups": [],
     "authors": "D C (via MCP)",
-    "name": "New webhook URL alongside the old one",
-    "description": "Added nodes: Ghost Webhook New\nConnections: 1 added, 0 removed",
+    "name": "Drop the exposed webhook URL",
+    "description": "Removed nodes: Ghost Webhook\nUpdated nodes: Ghost Webhook\nConnections: 0 added, 1 removed",
     "autosaved": false,
-    "createdAt": "2026-11-11T20:45:11.050Z",
-    "updatedAt": "2026-11-11T20:45:11.050Z"
+    "createdAt": "2026-11-12T01:54:29.318Z",
+    "updatedAt": "2026-11-12T01:54:29.318Z"
   },
-  "activeVersionId": "fa80f891-b139-4829-b623-8c1eeef22aa8",
+  "activeVersionId": "282da96d-f6ac-4863-89ef-fa347d178abb",
   "connections": {
-    "Ghost Webhook": {
-      "main": [
-        [
-          {
-            "node": "Normalize Event",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Debounce": {
       "main": [
         [
@@ -1450,7 +1412,7 @@
         ]
       ]
     },
-    "Ghost Webhook New": {
+    "Ghost Webhook": {
       "main": [
         [
           {
@@ -1472,22 +1434,6 @@
   "name": "ghost-translate-sync",
   "nodeGroups": [],
   "nodes": [
-    {
-      "id": "c00ec7d0-687e-407b-89a5-a8adc9471fd2",
-      "name": "Ghost Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.2,
-      "position": [
-        0,
-        560
-      ],
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "redacted",
-        "responseMode": "onReceived",
-        "options": {}
-      }
-    },
     {
       "id": "f1ec130a-c346-412b-b261-c1e096f0fe22",
       "name": "Normalize Event",
@@ -2386,7 +2332,7 @@
     },
     {
       "id": "3247b67b-c574-4d27-af1c-21762d17c5a8",
-      "name": "Ghost Webhook New",
+      "name": "Ghost Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.2,
       "position": [
@@ -2424,7 +2370,7 @@
       "updatedAt": "2026-07-19T15:29:32.896Z"
     }
   ],
-  "triggerCount": 2,
-  "updatedAt": "2026-11-11T20:45:11.049Z",
-  "versionId": "fa80f891-b139-4829-b623-8c1eeef22aa8"
+  "triggerCount": 1,
+  "updatedAt": "2026-11-12T01:54:29.317Z",
+  "versionId": "282da96d-f6ac-4863-89ef-fa347d178abb"
 }
