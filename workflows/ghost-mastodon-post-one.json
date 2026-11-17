@@ -1,0 +1,1016 @@
+{
+  "active": true,
+  "activeVersion": {
+    "versionId": "effd305a-a1b2-4a48-803a-e0806b720ae0",
+    "workflowId": "kaYEwplUk8Xd5z8Z",
+    "nodes": [
+      {
+        "id": "147cac7a-2be5-4bad-874d-531dea1a0b43",
+        "name": "Inputs",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          0,
+          300
+        ],
+        "parameters": {
+          "inputSource": "workflowInputs",
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "post_id",
+                "type": "string"
+              },
+              {
+                "name": "source",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cef92113-7647-4488-95d4-44d4bd638547",
+        "name": "Settings",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          220,
+          300
+        ],
+        "parameters": {
+          "mode": "manual",
+          "includeOtherFields": false,
+          "assignments": {
+            "assignments": [
+              {
+                "id": "s-ghost",
+                "name": "ghostUrl",
+                "type": "string",
+                "value": "https://en.criptonautas.co"
+              },
+              {
+                "id": "s-llm",
+                "name": "llmUrl",
+                "type": "string",
+                "value": "https://llm.criptonautas.co/v1/chat/completions"
+              },
+              {
+                "id": "s-model",
+                "name": "model",
+                "type": "string",
+                "value": "qwen-chat-medium"
+              },
+              {
+                "id": "s-mastodon",
+                "name": "mastodonUrl",
+                "type": "string",
+                "value": "https://mastodon.social"
+              },
+              {
+                "id": "s-max",
+                "name": "maxTootChars",
+                "type": "number",
+                "value": 380
+              },
+              {
+                "id": "s-prompt",
+                "name": "systemPrompt",
+                "type": "string",
+                "value": "You write Mastodon posts for Criptonautas, a cypherpunk-leaning blog about crypto, privacy and self-hosting. Given an article, write ONE short post that makes a curious technical reader want to click through. Voice: direct, concrete, slightly punchy. Never marketing-speak: no hype adjectives, no calls to action like check out or do not miss, no clickbait questions, no thread-bait. At most one emoji, usually none. Do not simply repeat the title; lead with the sharpest fact, number or tension from the article. Hard limit 380 characters for the toot text. Choose 0 to 3 lowercase hashtags only when genuinely relevant to a fediverse audience (examples: bitcoin, privacy, selfhosting, lightningnetwork). Reply with JSON only, no markdown fence: {\"toot\": \"...\", \"hashtags\": [\"...\"]}"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "45fdb01b-89a4-446f-80fa-afd32deede92",
+        "name": "Not Posted Yet",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          440,
+          300
+        ],
+        "parameters": {
+          "resource": "row",
+          "operation": "rowNotExists",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "MBBWMNpgPlFpfSSN",
+            "cachedResultName": "mastodon_posts"
+          },
+          "matchType": "allConditions",
+          "filters": {
+            "conditions": [
+              {
+                "keyName": "post_id",
+                "keyValue": "={{ $json.post_id }}"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "1d6388d0-fbe8-486b-9905-ae1c4471c7a7",
+        "name": "Fetch Post",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          660,
+          300
+        ],
+        "parameters": {
+          "method": "GET",
+          "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/{{ $('Inputs').first().json.post_id }}/?include=tags&formats=html",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "ghostAdminApi",
+          "options": {}
+        },
+        "credentials": {
+          "ghostAdminApi": {
+            "id": "dB4sfMhTDWOirbsM",
+            "name": "ghost-en-admin-api"
+          }
+        }
+      },
+      {
+        "id": "b3b9d2d1-9c90-4a69-a51a-290b22df81ff",
+        "name": "Still Published",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.4,
+        "position": [
+          880,
+          300
+        ],
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c-status",
+                "leftValue": "={{ $json.posts[0].status }}",
+                "rightValue": "published",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              },
+              {
+                "id": "c-visibility",
+                "leftValue": "={{ $json.posts[0].visibility }}",
+                "rightValue": "public",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "71533be3-e0b1-46de-8317-e96e07f8c18f",
+        "name": "Extract Text",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1100,
+          200
+        ],
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "jsCode": "// Why Code: strip HTML to plain text and cap the LLM input length\nconst post = $input.first().json.posts[0];\nconst text = String(post.html || '')\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, ' ')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, ' ')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n  .replace(/\\s+/g, ' ').trim();\nconst tags = (post.tags || []).map(t => t.name).filter(n => n && !n.startsWith('#'));\nreturn [{ json: {\n  post_id: post.id,\n  slug: post.slug,\n  title: post.title,\n  url: post.url,\n  excerpt: post.custom_excerpt || post.excerpt || '',\n  tags,\n  body: text.slice(0, 6000)\n} }];"
+        }
+      },
+      {
+        "id": "64c109b8-bd71-42c4-b15f-998f251a5ff9",
+        "name": "Curate Toot",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1320,
+          200
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Settings').first().json.llmUrl }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "openAiApi",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "={{ { model: $('Settings').first().json.model, temperature: 0.7, messages: [ { role: 'system', content: $('Settings').first().json.systemPrompt }, { role: 'user', content: 'Title: ' + $json.title + '\\nExcerpt: ' + $json.excerpt + '\\nTags: ' + $json.tags.join(', ') + '\\n\\nArticle:\\n' + $json.body } ] } }}",
+          "options": {
+            "timeout": 120000
+          }
+        },
+        "credentials": {
+          "openAiApi": {
+            "id": "o8pN7jD1z9bsiFOh",
+            "name": "OpenAi account"
+          }
+        }
+      },
+      {
+        "id": "df8505bf-6195-4a82-9fa3-e68b3087c940",
+        "name": "Build Status",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1540,
+          200
+        ],
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "jsCode": "// Why Code: parse the LLM JSON defensively and enforce the 500-char Mastodon limit\nconst raw = ($input.first().json.choices || [])[0]?.message?.content || '';\nlet parsed = {};\ntry { parsed = JSON.parse(raw); } catch (e) {\n  const m = raw.match(/\\{[\\s\\S]*\\}/);\n  if (m) { try { parsed = JSON.parse(m[0]); } catch (e2) {} }\n}\nconst meta = $('Extract Text').first().json;\nconst maxToot = $('Settings').first().json.maxTootChars;\nlet toot = String(parsed.toot || '').replace(/#[a-zA-Z0-9_]+/g, '').replace(/\\s+/g, ' ').trim() || meta.title;\nconst tags = (Array.isArray(parsed.hashtags) ? parsed.hashtags : [])\n  .map(t => String(t).replace(/^#/, '').replace(/[^a-zA-Z0-9_]/g, '').toLowerCase())\n  .filter(Boolean).slice(0, 3).map(t => '#' + t);\nconst suffix = '\\n\\n' + meta.url + (tags.length ? '\\n\\n' + tags.join(' ') : '');\nconst room = Math.min(maxToot, 500 - suffix.length);\nif (toot.length > room) toot = toot.slice(0, room - 1).trimEnd() + '…';\nreturn [{ json: { status: toot + suffix, post_id: meta.post_id, slug: meta.slug, title: meta.title } }];"
+        }
+      },
+      {
+        "id": "e0951630-554d-4806-b306-2d364a0f9dc2",
+        "name": "Post Toot",
+        "type": "n8n-nodes-the-mastodon.mastodon",
+        "typeVersion": 1,
+        "position": [
+          1760,
+          200
+        ],
+        "parameters": {
+          "resource": "status",
+          "operation": "create",
+          "authType": "token",
+          "url": "={{ $('Settings').first().json.mastodonUrl }}",
+          "status": "={{ $json.status }}",
+          "additionalFields": {
+            "visibility": "public"
+          }
+        },
+        "credentials": {
+          "mastodonTokenApi": {
+            "id": "fkRgAvLtVO5wHlvC",
+            "name": "Mastodon Access Token account"
+          }
+        },
+        "disabled": false
+      },
+      {
+        "id": "3cb297f7-6db5-46e7-b572-07f096f3254f",
+        "name": "Record Posted",
+        "type": "n8n-nodes-base.dataTable",
+        "typeVersion": 1.1,
+        "position": [
+          1980,
+          200
+        ],
+        "parameters": {
+          "resource": "row",
+          "operation": "insert",
+          "dataTableId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "MBBWMNpgPlFpfSSN",
+            "cachedResultName": "mastodon_posts"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "post_id": "={{ $json.post_id }}",
+              "slug": "={{ $json.slug }}",
+              "title": "={{ $json.title }}",
+              "status_url": "={{ $('Post Toot').item.json.url }}",
+              "source": "={{ $('Inputs').first().json.source }}",
+              "posted_at": "={{ $now.toISO() }}"
+            },
+            "schema": [
+              {
+                "id": "post_id",
+                "displayName": "post_id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "slug",
+                "displayName": "slug",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "title",
+                "displayName": "title",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "status_url",
+                "displayName": "status_url",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "source",
+                "displayName": "source",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "posted_at",
+                "displayName": "posted_at",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "date",
+                "canBeUsedToMatch": true
+              }
+            ]
+          }
+        },
+        "disabled": false
+      },
+      {
+        "id": "80ecd082-79ef-4013-9612-377741718ee5",
+        "name": "Sticky Note fc012a18",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          192,
+          208
+        ],
+        "parameters": {
+          "content": "## ghost-mastodon-post-one\nShared sub-workflow: takes post_id + source, posts one curated toot to mastodon.social/@criptonautas.\n\n1. Create the Mastodon credential (access token for mastodon.social, scope write:statuses) and select it on **Post Toot**.\n2. **Settings**: model, char limits and the curation prompt live here.\n3. Dedupe + backlog state: data table mastodon_posts. Already-posted ids exit silently at **Not Posted Yet**; unpublished/private posts exit at **Still Published**.",
+          "color": 4,
+          "width": 816,
+          "height": 224
+        }
+      }
+    ],
+    "connections": {
+      "Inputs": {
+        "main": [
+          [
+            {
+              "node": "Settings",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Settings": {
+        "main": [
+          [
+            {
+              "node": "Not Posted Yet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Not Posted Yet": {
+        "main": [
+          [
+            {
+              "node": "Fetch Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch Post": {
+        "main": [
+          [
+            {
+              "node": "Still Published",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Still Published": {
+        "main": [
+          [
+            {
+              "node": "Extract Text",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Text": {
+        "main": [
+          [
+            {
+              "node": "Curate Toot",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Curate Toot": {
+        "main": [
+          [
+            {
+              "node": "Build Status",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build Status": {
+        "main": [
+          [
+            {
+              "node": "Post Toot",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Post Toot": {
+        "main": [
+          [
+            {
+              "node": "Record Posted",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [
+      {
+        "id": "50ba7430-fa3c-4cbc-8837-e48d67abe80f",
+        "name": "Curate",
+        "nodeIds": [
+          "71533be3-e0b1-46de-8317-e96e07f8c18f",
+          "64c109b8-bd71-42c4-b15f-998f251a5ff9",
+          "df8505bf-6195-4a82-9fa3-e68b3087c940"
+        ],
+        "description": "Strips the article to text, asks the LLM for a punchy toot, enforces the 500-char limit"
+      },
+      {
+        "id": "bb6c4b8b-6334-4c07-ab46-82205556043d",
+        "name": "Publish",
+        "nodeIds": [
+          "e0951630-554d-4806-b306-2d364a0f9dc2",
+          "3cb297f7-6db5-46e7-b572-07f096f3254f"
+        ],
+        "description": "Posts the toot to Mastodon and records it in mastodon_posts"
+      }
+    ],
+    "authors": "D C (via MCP)",
+    "name": "Updated Post Toot, Record Posted",
+    "description": "Updated nodes: Post Toot, Record Posted",
+    "autosaved": false,
+    "createdAt": "2026-11-16T23:37:33.098Z",
+    "updatedAt": "2026-11-16T23:37:33.098Z"
+  },
+  "activeVersionId": "effd305a-a1b2-4a48-803a-e0806b720ae0",
+  "connections": {
+    "Inputs": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Not Posted Yet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Not Posted Yet": {
+      "main": [
+        [
+          {
+            "node": "Fetch Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Post": {
+      "main": [
+        [
+          {
+            "node": "Still Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Still Published": {
+      "main": [
+        [
+          {
+            "node": "Extract Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text": {
+      "main": [
+        [
+          {
+            "node": "Curate Toot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Curate Toot": {
+      "main": [
+        [
+          {
+            "node": "Build Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Status": {
+      "main": [
+        [
+          {
+            "node": "Post Toot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Toot": {
+      "main": [
+        [
+          {
+            "node": "Record Posted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-11-16T23:11:02.205Z",
+  "id": "kaYEwplUk8Xd5z8Z",
+  "isArchived": false,
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "name": "ghost-mastodon-post-one",
+  "nodeGroups": [
+    {
+      "id": "50ba7430-fa3c-4cbc-8837-e48d67abe80f",
+      "name": "Curate",
+      "nodeIds": [
+        "71533be3-e0b1-46de-8317-e96e07f8c18f",
+        "64c109b8-bd71-42c4-b15f-998f251a5ff9",
+        "df8505bf-6195-4a82-9fa3-e68b3087c940"
+      ],
+      "description": "Strips the article to text, asks the LLM for a punchy toot, enforces the 500-char limit"
+    },
+    {
+      "id": "bb6c4b8b-6334-4c07-ab46-82205556043d",
+      "name": "Publish",
+      "nodeIds": [
+        "e0951630-554d-4806-b306-2d364a0f9dc2",
+        "3cb297f7-6db5-46e7-b572-07f096f3254f"
+      ],
+      "description": "Posts the toot to Mastodon and records it in mastodon_posts"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "147cac7a-2be5-4bad-874d-531dea1a0b43",
+      "name": "Inputs",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "inputSource": "workflowInputs",
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "post_id",
+              "type": "string"
+            },
+            {
+              "name": "source",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cef92113-7647-4488-95d4-44d4bd638547",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s-ghost",
+              "name": "ghostUrl",
+              "type": "string",
+              "value": "https://en.criptonautas.co"
+            },
+            {
+              "id": "s-llm",
+              "name": "llmUrl",
+              "type": "string",
+              "value": "https://llm.criptonautas.co/v1/chat/completions"
+            },
+            {
+              "id": "s-model",
+              "name": "model",
+              "type": "string",
+              "value": "qwen-chat-medium"
+            },
+            {
+              "id": "s-mastodon",
+              "name": "mastodonUrl",
+              "type": "string",
+              "value": "https://mastodon.social"
+            },
+            {
+              "id": "s-max",
+              "name": "maxTootChars",
+              "type": "number",
+              "value": 380
+            },
+            {
+              "id": "s-prompt",
+              "name": "systemPrompt",
+              "type": "string",
+              "value": "You write Mastodon posts for Criptonautas, a cypherpunk-leaning blog about crypto, privacy and self-hosting. Given an article, write ONE short post that makes a curious technical reader want to click through. Voice: direct, concrete, slightly punchy. Never marketing-speak: no hype adjectives, no calls to action like check out or do not miss, no clickbait questions, no thread-bait. At most one emoji, usually none. Do not simply repeat the title; lead with the sharpest fact, number or tension from the article. Hard limit 380 characters for the toot text. Choose 0 to 3 lowercase hashtags only when genuinely relevant to a fediverse audience (examples: bitcoin, privacy, selfhosting, lightningnetwork). Reply with JSON only, no markdown fence: {\"toot\": \"...\", \"hashtags\": [\"...\"]}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "45fdb01b-89a4-446f-80fa-afd32deede92",
+      "name": "Not Posted Yet",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "MBBWMNpgPlFpfSSN",
+          "cachedResultName": "mastodon_posts"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "post_id",
+              "keyValue": "={{ $json.post_id }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1d6388d0-fbe8-486b-9905-ae1c4471c7a7",
+      "name": "Fetch Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        300
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/{{ $('Inputs').first().json.post_id }}/?include=tags&formats=html",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "ghostAdminApi",
+        "options": {}
+      },
+      "credentials": {
+        "ghostAdminApi": {
+          "id": "dB4sfMhTDWOirbsM",
+          "name": "ghost-en-admin-api"
+        }
+      }
+    },
+    {
+      "id": "b3b9d2d1-9c90-4a69-a51a-290b22df81ff",
+      "name": "Still Published",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        880,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-status",
+              "leftValue": "={{ $json.posts[0].status }}",
+              "rightValue": "published",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c-visibility",
+              "leftValue": "={{ $json.posts[0].visibility }}",
+              "rightValue": "public",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "71533be3-e0b1-46de-8317-e96e07f8c18f",
+      "name": "Extract Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        200
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Why Code: strip HTML to plain text and cap the LLM input length\nconst post = $input.first().json.posts[0];\nconst text = String(post.html || '')\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, ' ')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, ' ')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n  .replace(/\\s+/g, ' ').trim();\nconst tags = (post.tags || []).map(t => t.name).filter(n => n && !n.startsWith('#'));\nreturn [{ json: {\n  post_id: post.id,\n  slug: post.slug,\n  title: post.title,\n  url: post.url,\n  excerpt: post.custom_excerpt || post.excerpt || '',\n  tags,\n  body: text.slice(0, 6000)\n} }];"
+      }
+    },
+    {
+      "id": "64c109b8-bd71-42c4-b15f-998f251a5ff9",
+      "name": "Curate Toot",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Settings').first().json.llmUrl }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ { model: $('Settings').first().json.model, temperature: 0.7, messages: [ { role: 'system', content: $('Settings').first().json.systemPrompt }, { role: 'user', content: 'Title: ' + $json.title + '\\nExcerpt: ' + $json.excerpt + '\\nTags: ' + $json.tags.join(', ') + '\\n\\nArticle:\\n' + $json.body } ] } }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "o8pN7jD1z9bsiFOh",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "id": "df8505bf-6195-4a82-9fa3-e68b3087c940",
+      "name": "Build Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        200
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Why Code: parse the LLM JSON defensively and enforce the 500-char Mastodon limit\nconst raw = ($input.first().json.choices || [])[0]?.message?.content || '';\nlet parsed = {};\ntry { parsed = JSON.parse(raw); } catch (e) {\n  const m = raw.match(/\\{[\\s\\S]*\\}/);\n  if (m) { try { parsed = JSON.parse(m[0]); } catch (e2) {} }\n}\nconst meta = $('Extract Text').first().json;\nconst maxToot = $('Settings').first().json.maxTootChars;\nlet toot = String(parsed.toot || '').replace(/#[a-zA-Z0-9_]+/g, '').replace(/\\s+/g, ' ').trim() || meta.title;\nconst tags = (Array.isArray(parsed.hashtags) ? parsed.hashtags : [])\n  .map(t => String(t).replace(/^#/, '').replace(/[^a-zA-Z0-9_]/g, '').toLowerCase())\n  .filter(Boolean).slice(0, 3).map(t => '#' + t);\nconst suffix = '\\n\\n' + meta.url + (tags.length ? '\\n\\n' + tags.join(' ') : '');\nconst room = Math.min(maxToot, 500 - suffix.length);\nif (toot.length > room) toot = toot.slice(0, room - 1).trimEnd() + '…';\nreturn [{ json: { status: toot + suffix, post_id: meta.post_id, slug: meta.slug, title: meta.title } }];"
+      }
+    },
+    {
+      "id": "e0951630-554d-4806-b306-2d364a0f9dc2",
+      "name": "Post Toot",
+      "type": "n8n-nodes-the-mastodon.mastodon",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        200
+      ],
+      "parameters": {
+        "resource": "status",
+        "operation": "create",
+        "authType": "token",
+        "url": "={{ $('Settings').first().json.mastodonUrl }}",
+        "status": "={{ $json.status }}",
+        "additionalFields": {
+          "visibility": "public"
+        }
+      },
+      "credentials": {
+        "mastodonTokenApi": {
+          "id": "fkRgAvLtVO5wHlvC",
+          "name": "Mastodon Access Token account"
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "3cb297f7-6db5-46e7-b572-07f096f3254f",
+      "name": "Record Posted",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1980,
+        200
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "MBBWMNpgPlFpfSSN",
+          "cachedResultName": "mastodon_posts"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $json.post_id }}",
+            "slug": "={{ $json.slug }}",
+            "title": "={{ $json.title }}",
+            "status_url": "={{ $('Post Toot').item.json.url }}",
+            "source": "={{ $('Inputs').first().json.source }}",
+            "posted_at": "={{ $now.toISO() }}"
+          },
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "slug",
+              "displayName": "slug",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status_url",
+              "displayName": "status_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
+      },
+      "disabled": false
+    },
+    {
+      "id": "80ecd082-79ef-4013-9612-377741718ee5",
+      "name": "Sticky Note fc012a18",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        208
+      ],
+      "parameters": {
+        "content": "## ghost-mastodon-post-one\nShared sub-workflow: takes post_id + source, posts one curated toot to mastodon.social/@criptonautas.\n\n1. Create the Mastodon credential (access token for mastodon.social, scope write:statuses) and select it on **Post Toot**.\n2. **Settings**: model, char limits and the curation prompt live here.\n3. Dedupe + backlog state: data table mastodon_posts. Already-posted ids exit silently at **Not Posted Yet**; unpublished/private posts exit at **Still Published**.",
+        "color": 4,
+        "width": 816,
+        "height": 224
+      }
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "errorWorkflow": "6YeRd2MBpoIleUlj"
+  },
+  "shared": [
+    {
+      "role": "workflow:owner",
+      "workflowId": "kaYEwplUk8Xd5z8Z",
+      "projectId": "HXLppsMA2lbH4F4C",
+      "createdAt": "2026-11-16T23:11:02.205Z",
+      "updatedAt": "2026-11-16T23:11:02.205Z"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-11-16T23:37:33.097Z",
+  "versionId": "effd305a-a1b2-4a48-803a-e0806b720ae0"
+}
