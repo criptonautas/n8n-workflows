@@ -1,0 +1,430 @@
+{
+  "active": true,
+  "activeVersion": {
+    "versionId": "fd7dff89-16a6-4030-b3f6-c8059afbe24c",
+    "workflowId": "EvNnYi6lco5Vg4k9",
+    "nodes": [
+      {
+        "id": "5e1502d3-ed2d-444c-8b37-39549a291088",
+        "name": "Ghost Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.2,
+        "position": [
+          0,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "responseMode": "onReceived",
+          "options": {}
+        }
+      },
+      {
+        "id": "27b06c72-c054-4004-87aa-fdb8702fea39",
+        "name": "Normalize Event",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          220,
+          300
+        ],
+        "parameters": {
+          "mode": "manual",
+          "includeOtherFields": false,
+          "assignments": {
+            "assignments": [
+              {
+                "id": "n-event",
+                "name": "event",
+                "type": "string",
+                "value": "={{ String($json.query?.event || '') }}"
+              },
+              {
+                "id": "n-id",
+                "name": "post_id",
+                "type": "string",
+                "value": "={{ String($json.body?.post?.current?.id || '') }}"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "7bbed18a-fb49-472e-94e9-726a154d9802",
+        "name": "Is Publish",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.4,
+        "position": [
+          440,
+          300
+        ],
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c-event",
+                "leftValue": "={{ $json.event }}",
+                "rightValue": "published",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              },
+              {
+                "id": "c-id",
+                "leftValue": "={{ $json.post_id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "notEmpty"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "4d7acd4d-7409-4e78-bc19-e5f15781baad",
+        "name": "Call Post One",
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.4,
+        "position": [
+          660,
+          200
+        ],
+        "parameters": {
+          "source": "database",
+          "workflowId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "kaYEwplUk8Xd5z8Z",
+            "cachedResultName": "ghost-mastodon-post-one"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "post_id": "={{ $json.post_id }}",
+              "source": "new"
+            },
+            "schema": [
+              {
+                "id": "post_id",
+                "displayName": "post_id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "source",
+                "displayName": "source",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              }
+            ]
+          },
+          "mode": "once",
+          "options": {
+            "waitForSubWorkflow": true
+          }
+        }
+      },
+      {
+        "id": "fb09d337-1b7d-4e52-b170-abd8fb58288f",
+        "name": "Sticky Note 39e250a2",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          192,
+          112
+        ],
+        "parameters": {
+          "content": "## ghost-mastodon-publisher\nGhost EN publish event -> one curated toot on mastodon.social/@criptonautas.\n\nSetup: Ghost Admin (en.criptonautas.co) -> Settings -> Integrations -> custom integration -> Add webhook:\n- Event: **Post published**\n- Target URL: the production URL of **Ghost Webhook** with ?event=published appended\n\nEdits do not repost. Republishing an already-posted article is deduped by ghost-mastodon-post-one (data table mastodon_posts). Failures alert via workflows-errors-ntfy.",
+          "color": 4,
+          "width": 608,
+          "height": 320
+        }
+      }
+    ],
+    "connections": {
+      "Ghost Webhook": {
+        "main": [
+          [
+            {
+              "node": "Normalize Event",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Normalize Event": {
+        "main": [
+          [
+            {
+              "node": "Is Publish",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Is Publish": {
+        "main": [
+          [
+            {
+              "node": "Call Post One",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "D C (via MCP)",
+    "name": "Initial version",
+    "description": "Created with 5 nodes: Ghost Webhook, Normalize Event, Is Publish, Call Post One, Sticky Note 39e250a2",
+    "autosaved": false,
+    "createdAt": "2026-11-16T23:11:51.441Z",
+    "updatedAt": "2026-11-16T23:11:51.441Z"
+  },
+  "activeVersionId": "fd7dff89-16a6-4030-b3f6-c8059afbe24c",
+  "connections": {
+    "Ghost Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Event": {
+      "main": [
+        [
+          {
+            "node": "Is Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Publish": {
+      "main": [
+        [
+          {
+            "node": "Call Post One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-11-16T23:11:51.441Z",
+  "id": "EvNnYi6lco5Vg4k9",
+  "isArchived": false,
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "name": "ghost-mastodon-publisher",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "id": "5e1502d3-ed2d-444c-8b37-39549a291088",
+      "name": "Ghost Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "responseMode": "onReceived",
+        "options": {}
+      }
+    },
+    {
+      "id": "27b06c72-c054-4004-87aa-fdb8702fea39",
+      "name": "Normalize Event",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "n-event",
+              "name": "event",
+              "type": "string",
+              "value": "={{ String($json.query?.event || '') }}"
+            },
+            {
+              "id": "n-id",
+              "name": "post_id",
+              "type": "string",
+              "value": "={{ String($json.body?.post?.current?.id || '') }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "7bbed18a-fb49-472e-94e9-726a154d9802",
+      "name": "Is Publish",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c-event",
+              "leftValue": "={{ $json.event }}",
+              "rightValue": "published",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "c-id",
+              "leftValue": "={{ $json.post_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "4d7acd4d-7409-4e78-bc19-e5f15781baad",
+      "name": "Call Post One",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.4,
+      "position": [
+        660,
+        200
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "kaYEwplUk8Xd5z8Z",
+          "cachedResultName": "ghost-mastodon-post-one"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "post_id": "={{ $json.post_id }}",
+            "source": "new"
+          },
+          "schema": [
+            {
+              "id": "post_id",
+              "displayName": "post_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    },
+    {
+      "id": "fb09d337-1b7d-4e52-b170-abd8fb58288f",
+      "name": "Sticky Note 39e250a2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        112
+      ],
+      "parameters": {
+        "content": "## ghost-mastodon-publisher\nGhost EN publish event -> one curated toot on mastodon.social/@criptonautas.\n\nSetup: Ghost Admin (en.criptonautas.co) -> Settings -> Integrations -> custom integration -> Add webhook:\n- Event: **Post published**\n- Target URL: the production URL of **Ghost Webhook** with ?event=published appended\n\nEdits do not repost. Republishing an already-posted article is deduped by ghost-mastodon-post-one (data table mastodon_posts). Failures alert via workflows-errors-ntfy.",
+        "color": 4,
+        "width": 608,
+        "height": 320
+      }
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "errorWorkflow": "6YeRd2MBpoIleUlj"
+  },
+  "shared": [
+    {
+      "role": "workflow:owner",
+      "workflowId": "EvNnYi6lco5Vg4k9",
+      "projectId": "HXLppsMA2lbH4F4C",
+      "createdAt": "2026-11-16T23:11:51.441Z",
+      "updatedAt": "2026-11-16T23:11:51.441Z"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-11-16T23:13:32.219Z",
+  "versionId": "fd7dff89-16a6-4030-b3f6-c8059afbe24c"
+}
