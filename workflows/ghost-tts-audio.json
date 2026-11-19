@@ -1,0 +1,3268 @@
+{
+  "active": true,
+  "activeVersion": {
+    "versionId": "c3e0be82-9c46-4dd4-8975-0f71a32fb558",
+    "workflowId": "F6VXxRCdbTYba3ME",
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "redacted",
+          "authentication": "basicAuth",
+          "options": {}
+        },
+        "id": "aca2f4f4-7345-4bbf-a62b-b4d09cc47d5c",
+        "name": "Ghost Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          0,
+          0
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "aRaL6EnhlVPrVBcw",
+            "name": "ghost-read-qwen-tts"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "id": "7065dcee-9062-4efe-9426-9dadf62916b2",
+        "name": "Manual Test",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "68b2019a-30f5-4943-911f-8fbf8099b5a7",
+                "name": "slug",
+                "value": "merito",
+                "type": "string"
+              },
+              {
+                "id": "cf1295f6-d149-4618-94eb-9f0c01df8b5f",
+                "name": "event",
+                "value": "manual",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "18f740be-879f-4288-b28e-1552bea2ca3e",
+        "name": "Test Post",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          224,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "11d1cbdc-3917-45a1-86b6-881356616825",
+                "name": "slug",
+                "value": "={{ $json.body?.post?.current?.slug ?? $json.slug }}",
+                "type": "string"
+              },
+              {
+                "id": "eb04c326-41c9-4d6a-8de6-c61d0440b2fc",
+                "name": "event",
+                "value": "={{ $json.query?.event ?? $json.event ?? 'edited' }}",
+                "type": "string"
+              },
+              {
+                "id": "7caa1306-6f85-4c97-97dd-a8791eeee0cc",
+                "name": "ghostUrl",
+                "value": "https://criptonautas.co",
+                "type": "string"
+              },
+              {
+                "id": "11984a30-3bdb-4382-bcd1-3255e34f6e22",
+                "name": "ttsUrl",
+                "value": "https://llm.criptonautas.co/vertex_ai/v1beta1/projects/nautas/locations/global/publishers/google/models/gemini-3.8-flash-tts:generateContent",
+                "type": "string"
+              },
+              {
+                "id": "36feca02-801a-4bf1-a528-9bc1d216a5ae",
+                "name": "titleEn",
+                "value": "by The Archivist (AI voice)",
+                "type": "string"
+              },
+              {
+                "id": "d8c83a3b-8fae-4ef4-8df9-48530c3cdad7",
+                "name": "titleEs",
+                "value": "por La Operadora (voz desde IA)",
+                "type": "string"
+              },
+              {
+                "id": "a7421402-6d21-4c40-9cf8-f17450bb9a3c",
+                "name": "staleEn",
+                "value": "Audio from an earlier version of this article",
+                "type": "string"
+              },
+              {
+                "id": "11f4d31b-036c-4782-bec0-a0519501b550",
+                "name": "staleEs",
+                "value": "Audio de la versión inicial de este artículo",
+                "type": "string"
+              },
+              {
+                "id": "71e7b589-3f49-4633-b1ed-082a15bac1fc",
+                "name": "chunkChars",
+                "value": 1500,
+                "type": "number"
+              },
+              {
+                "id": "1c5ad154-b1b7-4c8e-a2bb-9262a80ea20c",
+                "name": "bunnyStorageUrl",
+                "value": "https://br.storage.bunnycdn.com/criptonautas",
+                "type": "string"
+              },
+              {
+                "id": "9c298afb-4d32-457f-9ef5-f96424b5776d",
+                "name": "cdnBase",
+                "value": "https://cdn-box.criptonautas.co",
+                "type": "string"
+              },
+              {
+                "id": "30efd559-0732-4061-a68e-fa35a46c197e",
+                "name": "audioDir",
+                "value": "blog-tts",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-0",
+                "name": "voiceEnTransatlantic",
+                "value": "voice_d3abfd16-0062-4b0f-88b9-6ec29dee559c",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-1",
+                "name": "voiceEnCanadian",
+                "value": "voice_9abf0c25-87dd-4f60-bdd7-01f3ad34a173",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-2",
+                "name": "voiceEnPnw",
+                "value": "voice_9dbd0ad9-4692-4960-94b9-a53448078fce",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-3",
+                "name": "voiceEsMx",
+                "value": "voice_4017e2db-4355-4520-9777-9a14a9ee338f",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-4",
+                "name": "voiceEsCo",
+                "value": "voice_7f14c6f4-8896-4536-958e-8aac3a7d95aa",
+                "type": "string"
+              },
+              {
+                "id": "gemini-voice-5",
+                "name": "voiceEsAr",
+                "value": "voice_f207ac5d-ae6a-43cf-a6d3-d6604e40a40c",
+                "type": "string"
+              },
+              {
+                "id": "audio-extension",
+                "name": "audioExtension",
+                "value": "wav",
+                "type": "string"
+              },
+              {
+                "id": "qwen-url",
+                "name": "qwenTtsUrl",
+                "value": "https://llm.criptonautas.co/qwen/tts",
+                "type": "string"
+              },
+              {
+                "id": "qwen-model",
+                "name": "qwenModel",
+                "value": "qwen-audio-3.1-tts-flash",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-0",
+                "name": "qwenVoiceEnTransatlantic",
+                "value": "qwen-audio-3.1-tts-flash-archtsp-0eec67bb1e2c4210ba9ab95458c997bf",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-1",
+                "name": "qwenVoiceEnCanadian",
+                "value": "qwen-audio-3.1-tts-flash-archcap-862b560b29fd4ad0be9c9ae10be01bd1",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-2",
+                "name": "qwenVoiceEnPnw",
+                "value": "qwen-audio-3.1-tts-flash-archpnwp-7420792d6fe745308144c7e42c09239d",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-3",
+                "name": "qwenVoiceEsMx",
+                "value": "qwen-audio-3.1-tts-flash-operamxp-f45c1b8ef6dd4045920b0c8623c1ab93",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-4",
+                "name": "qwenVoiceEsCo",
+                "value": "qwen-audio-3.1-tts-flash-operacop-4064e30259ee4722a0358b7192392b80",
+                "type": "string"
+              },
+              {
+                "id": "qwen-voice-5",
+                "name": "qwenVoiceEsAr",
+                "value": "qwen-audio-3.1-tts-flash-operaarp-18f22ba93ae348d48c92d8603ac335fb",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "9691d170-8d67-47b2-bc4e-3fb5352aa731",
+        "name": "Settings",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          448,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/slug/{{ $('Settings').first().json.slug }}/?formats=lexical&include=tags",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "ghostAdminApi",
+          "options": {}
+        },
+        "id": "24403ac4-adf3-40c8-928f-bc509dd0e782",
+        "name": "Get Post",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          672,
+          0
+        ],
+        "credentials": {
+          "ghostAdminApi": {
+            "id": "1A8x4AjzoI4VhxKp",
+            "name": "nautas-ghost-api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const cfg = $('Settings').first().json;\nconst post = $input.first().json.posts[0];\nconst tags = post.tags.map(t => t.slug);\nif (!tags.includes('hash-audio') && !['manual', 'backlog'].includes(cfg.event)) return [];\nif (post.status !== 'published' && cfg.event !== 'manual') return [];\nconst refresh = tags.includes('hash-audio-refresh');\n\n// Read text from lexical so the inserted audio card never changes the fingerprint; code blocks and images are skipped on purpose\n// The AI summary toggle (\"resumen\"/\"summary\", from Ghost: AI Summary Card) is skipped too, so adding it does not mark the audio stale\nconst isSummary = n => n.type === 'toggle' && ['resumen', 'summary'].includes(String(n.heading || '').replace(/<[^>]+>/g, '').trim());\nconst textOf = n => n.type === 'audio' || isSummary(n) ? '' : typeof n.text === 'string' ? n.text : (n.children || []).map(textOf).join(['root', 'list'].includes(n.type) ? '\\n' : '');\nconst lexical = JSON.parse(post.lexical);\nconst rawText = (post.title + '.\\n' + textOf(lexical.root)).replace(/[ \\t]+/g, ' ').replace(/\\s*\\n\\s*/g, '\\n').trim();\nconst sections = [];\nlet section;\nlet contentBlock = -1;\nconst addBlock = (value, block, type) => {\n  const raw = String(value || '').replace(/[ \\t]+/g, ' ').trim();\n  if (!raw) return;\n  if (type === 'heading' || type === 'extended-heading' || !section) {\n    section = { anchor: block, text: '' };\n    sections.push(section);\n  }\n  section.text += (section.text ? '\\n' : '') + raw;\n};\naddBlock(post.title, -1, 'title');\nfor (const node of lexical.root.children) {\n  if (node.type === 'audio') continue;\n  contentBlock++;\n  addBlock(textOf(node), contentBlock, node.type);\n}\n\n// From the site, not the post: a guess from the slug read Spanish posts without -es as English.\nconst lang = /^https:\\/\\/en\\./.test(cfg.ghostUrl) ? 'en' : 'es';\n\nfunction spanishInteger(value) {\n  const n = Number(value);\n  if (!Number.isSafeInteger(n) || n < 0 || n >= 1000000000) return String(value);\n  if (n === 0) return 'cero';\n  const units = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];\n  const specials = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];\n  const twenties = ['veinte', 'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis', 'veintisiete', 'veintiocho', 'veintinueve'];\n  const tens = ['', '', '', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];\n  const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];\n  const under100 = x => x < 10 ? units[x] : x < 20 ? specials[x - 10] : x < 30 ? twenties[x - 20] : tens[Math.floor(x / 10)] + (x % 10 ? ' y ' + units[x % 10] : '');\n  const under1000 = x => x === 100 ? 'cien' : x < 100 ? under100(x) : hundreds[Math.floor(x / 100)] + (x % 100 ? ' ' + under100(x % 100) : '');\n  if (n < 1000) return under1000(n);\n  if (n < 1000000) {\n    const thousands = Math.floor(n / 1000), rest = n % 1000;\n    return (thousands === 1 ? 'mil' : under1000(thousands) + ' mil') + (rest ? ' ' + under1000(rest) : '');\n  }\n  const millions = Math.floor(n / 1000000), rest = n % 1000000;\n  return (millions === 1 ? 'un millón' : under1000(millions) + ' millones') + (rest ? ' ' + spanishInteger(rest) : '');\n}\nfunction spanishNumber(raw) {\n  const value = String(raw);\n  if (/^\\d{1,3}(?:\\.\\d{3})+$/.test(value)) return spanishInteger(value.replace(/\\./g, ''));\n  const decimal = value.match(/^(\\d+),(\\d+)$/);\n  if (decimal) {\n    const fraction = decimal[2];\n    const leading = fraction.match(/^0+/)?.[0].length || 0;\n    const fractionalWords = leading === fraction.length\n      ? fraction.split('').map(() => 'cero').join(' ')\n      : (leading ? 'cero '.repeat(leading) : '') + spanishInteger(Number(fraction));\n    return spanishInteger(decimal[1]) + ' coma ' + fractionalWords;\n  }\n  return /^\\d+$/.test(value) ? spanishInteger(value) : value;\n}\nfunction normalizeSpanishNumbers(input) {\n  let text = String(input);\n  const number = '\\\\d{1,3}(?:\\\\.\\\\d{3})+|\\\\d+(?:,\\\\d+)?';\n  const range = new RegExp('(' + number + ')\\\\s*[-–—]\\\\s*(' + number + ')\\\\s*%', 'g');\n  text = text.replace(range, (_, a, b) => spanishNumber(a) + ' a ' + spanishNumber(b) + ' por ciento');\n  text = text.replace(new RegExp('(' + number + ')\\\\s*%', 'g'), (_, n) => spanishNumber(n) + ' por ciento');\n  const currencies = {\n    USD: ['dólar estadounidense', 'dólares estadounidenses'], EUR: ['euro', 'euros'], COP: ['peso colombiano', 'pesos colombianos'],\n    MXN: ['peso mexicano', 'pesos mexicanos'], ARS: ['peso argentino', 'pesos argentinos']\n  };\n  const moneyNumber = '\\\\d{1,3}(?:\\\\.\\\\d{3})+|\\\\d+(?:[.,]\\\\d{1,2})?';\n  const money = (code, raw) => {\n    const names = currencies[code.toUpperCase()];\n    const thousands = /^\\d{1,3}(?:\\.\\d{3})+$/.test(raw);\n    const parts = raw.split(/[.,]/);\n    if (!thousands && parts.length === 2) {\n      const whole = Number(parts[0]), fraction = Number(parts[1]);\n      if (fraction === 0) return (whole === 1 ? 'un' : spanishInteger(whole)) + ' ' + (whole === 1 ? names[0] : names[1]);\n      if (whole === 0) {\n        const unit = code.toUpperCase() === 'USD' ? 'dólar' : names[0];\n        return spanishInteger(fraction) + ' ' + (fraction === 1 ? 'centavo' : 'centavos') + ' de ' + unit;\n      }\n      const unit = code.toUpperCase() === 'USD' ? (whole === 1 ? 'dólar' : 'dólares') : (whole === 1 ? names[0] : names[1]);\n      return (whole === 1 ? 'un' : spanishInteger(whole)) + ' ' + unit + ' con ' + spanishInteger(fraction);\n    }\n    const numeric = Number(raw.replace(/\\./g, '').replace(',', '.'));\n    return numeric === 1 ? 'un ' + names[0] : spanishNumber(raw) + ' ' + names[1];\n  };\n  text = text.replace(new RegExp('\\\\b(USD|EUR|COP|MXN|ARS)\\\\s+(' + moneyNumber + ')', 'gi'), (_, code, n) => money(code, n));\n  text = text.replace(new RegExp('(' + moneyNumber + ')\\\\s+(USD|EUR|COP|MXN|ARS)\\\\b', 'gi'), (_, n, code) => money(code, n));\n  text = text.replace(/\\b(USD|EUR|COP|MXN|ARS)\\b/gi, code => currencies[code.toUpperCase()][1]);\n  return text.replace(new RegExp('\\\\b(' + number + ')\\\\b', 'g'), (_, n) => spanishNumber(n));\n}\n\n// Narration glossary only; Ghost content remains unchanged.\n// Uppercase entries are case-sensitive; lowercase phrases are case-insensitive.\nconst GLOSSARY = {\n  DCA: 'Dollar Cost Averaging', TP: 'Take Profit', SL: 'Stop Loss', ATH: 'All Time High',\n  AT: 'Análisis Técnico', AF: 'Análisis Fundamental', KYC: 'Know Your Customer',\n  CC: 'Creative Commons', DYOR: 'Do Your Own Research', P2P: 'Peer to Peer',\n  FOMO: 'fomo', FUD: 'fud', HODL: 'hodl',\n  'bear market': 'mercado bajista', 'bull market': 'mercado alcista',\n  bullrun: 'mercado alcista', 'bull run': 'mercado alcista',\n  'cold storage': 'almacenamiento en frío',\n  'private keys': 'claves privadas', 'private key': 'clave privada',\n  wallets: 'billeteras', wallet: 'billetera', fees: 'comisiones', fee: 'comisión',\n  'market cap': 'capitalización de mercado', 'all time high': 'máximo histórico',\n  BTC: 'Bitcoin', ETH: 'Ether', SOL: 'Solana', TRX: 'Tron', XMR: 'Monero',\n  XNO: 'Nano', ZEC: 'Zcash', XRP: 'Ripple', DOGE: 'Dogecoin', LINK: 'Chainlink',\n  ADA: 'Cardano', XLM: 'Stellar', BCH: 'Bitcoin Cash', LTC: 'Litecoin',\n  NEAR: 'Near Protocol', UNI: 'Uniswap', ETC: 'Ethereum Classic', HBAR: 'Hedera',\n  ICP: 'Internet Computer', POL: 'Polygon', MATIC: 'Matic, hoy Polygon',\n  AAVE: 'Aave', MNT: 'Mantle', ATOM: 'Cosmos', ALGO: 'Algorand', KAS: 'Kaspa',\n  PAXG: 'Pax Gold', XAUT: 'Tether Gold', WOW: 'Wownero', BEAM: 'Beam', ZANO: 'Zano',\n  USDT: 'Tether', USDC: 'USD Coin'\n};\nconst glossaryTerms = Object.entries(GLOSSARY).sort(([a], [b]) => b.length - a.length);\nfunction applyGlossary(input) {\n  let text = String(input);\n  for (const [term, replacement] of glossaryTerms) {\n    const escaped = term.replace(/[.*+?^$(){}|[\\]\\\\]/g, '\\\\$&');\n    const flags = /^[A-Z0-9]+$/.test(term) ? 'gu' : 'giu';\n    const pattern = new RegExp('(?<![\\\\p{L}\\\\p{N}])' + escaped + '(?![\\\\p{L}])', flags);\n    text = text.replace(pattern, (match, offset, source) =>\n      replacement + (/\\d/.test(source[offset + match.length]) ? ' ' : ''));\n  }\n  return text.replace(/([\\p{L}]+(?: [\\p{L}]+)*) \\(\\1\\)/giu, '$1');\n}\n\n// Normalize only narration; Ghost content remains unchanged and fingerprints track spoken text.\nconst normalizeText = value => lang === 'es' ? applyGlossary(normalizeSpanishNumbers(value)) : value;\nconst normalizationSignature = [applyGlossary, normalizeSpanishNumbers, spanishNumber, spanishInteger].map(fn => fn.toString()).join('|') + JSON.stringify(GLOSSARY);\nconst text = normalizeText(rawText);\nconst card = lexical.root.children.find(n => n.type === 'audio' && String(n.src).startsWith(cfg.cdnBase));\nconst variants = lang === 'es' ? [\n  { key: 'mx', voice: cfg.voiceEsMx, qwenVoice: cfg.qwenVoiceEsMx, accent: 'Read entirely in native Mexican Spanish from Mexico City, with consistent seseo and no Castilian theta.' },\n  { key: 'co', voice: cfg.voiceEsCo, qwenVoice: cfg.qwenVoiceEsCo, accent: 'Read entirely in native Colombian Spanish from Bogotá, with consistent seseo and no Castilian theta.' },\n  { key: 'ar', voice: cfg.voiceEsAr, qwenVoice: cfg.qwenVoiceEsAr, accent: 'Read entirely in native Argentine Spanish from Buenos Aires, with natural Rioplatense intonation and soft sheísmo for y and ll, without exaggerating the accent.' }\n] : [\n  { key: 'transatlantic', voice: cfg.voiceEnTransatlantic, qwenVoice: cfg.qwenVoiceEnTransatlantic, accent: 'Read entirely in neutral international English with a restrained transatlantic accent: subtly British-influenced but not Received Pronunciation, regionally ambiguous, and lightly rhotic rather than American.' },\n  { key: 'canadian', voice: cfg.voiceEnCanadian, qwenVoice: cfg.qwenVoiceEnCanadian, accent: 'Read entirely in natural Canadian English from Toronto, with understated southern-Ontario pronunciation and no exaggerated Canadian mannerisms.' },\n  { key: 'pnw', voice: cfg.voiceEnPnw, qwenVoice: cfg.qwenVoiceEnPnw, accent: 'Read entirely in natural American English from the Pacific Northwest, with relaxed Seattle or Portland pronunciation and no New York, Boston, Southern, Texan, or exaggerated broadcaster accent.' }\n];\nlet voiceHash = 5381;\nfor (const c of String(post.id)) voiceHash = ((voiceHash * 33) ^ c.charCodeAt(0)) >>> 0;\nconst selected = variants[voiceHash % variants.length];\nconst narration = 'Sound like a compelling documentary narrator: firm, warm, self-possessed, intelligent, and quietly energetic. Begin with confident clarity, use brief natural rhetorical pauses after important ideas, vary emphasis instead of maintaining a uniform cadence, and finish with calm resolve. Keep human conversational warmth and avoid sounding like advertising, a newsreader, a motivational speaker, or theatrical acting.';\nconst style = selected.accent + ' ' + narration;\nconst title = lang === 'es' ? cfg.titleEs : cfg.titleEn;\nconst synthesisSignature = JSON.stringify({ planning: 'semantic-v2', model: cfg.qwenModel, qwenVoice: selected.qwenVoice, geminiModel: cfg.ttsUrl, geminiVoice: selected.voice, style, normalization: normalizationSignature });\nlet h = 5381;\nfor (const c of text + '|' + synthesisSignature) h = ((h * 33) ^ c.charCodeAt(0)) >>> 0;\nconst fileBase = `${post.slug}-${h.toString(16).padStart(8, '0')}`;\nconst fileName = `${fileBase}.${cfg.audioExtension || 'wav'}`;\nconst qwenFileName = `${fileBase}.mp3`;\nconst manifestName = `${fileBase}.json`;\nconst upToDateCard = card && (card.src.endsWith('/' + fileName) || card.src.endsWith('/' + qwenFileName));\nif (upToDateCard && !refresh && cfg.event !== 'manual') return [];\nif (card && !refresh && !upToDateCard && cfg.event !== 'manual') {\n  const stale = lang === 'es' ? cfg.staleEs : cfg.staleEn;\n  return card.title === stale ? [] : [{ json: { action: 'stale', title: stale } }];\n}\nif (!card && !refresh && !['published', 'manual', 'backlog'].includes(cfg.event)) return [];\nconst splitLong = (s, max) => {\n  const out = [];\n  let rest = s.trim();\n  while (rest.length > max) {\n    let cut = rest.lastIndexOf(',', max - 1);\n    if (cut < max * 0.4) cut = rest.lastIndexOf(' ', max - 1);\n    if (cut <= 0) cut = max - 1;\n    out.push(rest.slice(0, cut + 1).trim());\n    rest = rest.slice(cut + 1).trim();\n  }\n  if (rest) out.push(rest);\n  return out;\n};\nconst chunks = [];\nfor (const semanticSection of sections) {\n  const sectionText = normalizeText(semanticSection.text);\n  let cur = '';\n  const pushCur = () => {\n    if (cur.trim()) chunks.push({ text: cur.trim(), anchor: semanticSection.anchor });\n    cur = '';\n  };\n  for (const s of sectionText.match(/[^.!?…]+(?:[.!?…]+[\"'»”)]*|$)\\s*/g) || []) {\n    if (s.length > cfg.chunkChars) {\n      pushCur();\n      for (const piece of splitLong(s, cfg.chunkChars)) chunks.push({ text: piece, anchor: semanticSection.anchor });\n      continue;\n    }\n    if (cur && (cur + s).length > cfg.chunkChars) pushCur();\n    cur += s;\n  }\n  pushCur();\n}\nconst chunkSignature = JSON.stringify({ provider: 'qwen', model: cfg.qwenModel, voice: selected.qwenVoice, style, normalization: normalizationSignature, format: 'mp3', sampleRate: 24000, seed: 42 });\nreturn chunks.map((chunk, chunkIndex) => {\n  let chunkHash = 5381;\n  for (const c of chunk.text + '|' + chunkSignature) chunkHash = ((chunkHash * 33) ^ c.charCodeAt(0)) >>> 0;\n  const chunkFileName = `${post.slug}-${chunkHash.toString(16).padStart(8, '0')}.mp3`;\n  return { json: { action: 'generate', text: chunk.text, anchor: chunk.anchor, chunkIndex, chunkFileName, fileBase, manifestName, voice: selected.voice, qwenVoice: selected.qwenVoice, voiceVariant: selected.key, language: lang, style, qwenInstruction: style, title, fileName, refresh, existingDuration: card?.duration || 0 } };\n});"
+        },
+        "id": "b902f859-3893-42ff-b341-14235028e2a2",
+        "name": "Plan Audio",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          880,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "142463fc-7357-42b9-ab3d-d4d0a1d3fcdc",
+                "leftValue": "={{ $json.action }}",
+                "rightValue": "generate",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "a16bb74e-9cc5-4003-9246-380538b39817",
+        "name": "New Audio?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1104,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Settings').first().json.ttsUrl }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpTemplatedCustomAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ { contents: [{ role: 'user', parts: [{ text: $json.text, speechMetadata: { style: $json.style } }] }], generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: $json.voice } } } } }}",
+          "options": {
+            "batching": {
+              "batch": {
+                "batchSize": 1,
+                "batchInterval": 500
+              }
+            },
+            "timeout": 180000
+          }
+        },
+        "id": "f843ffb2-a419-4a66-a710-10c505f2a82e",
+        "name": "gemini-tts",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          1984,
+          160
+        ],
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 2000,
+        "credentials": {
+          "httpTemplatedCustomAuth": {
+            "id": "SaBp2JC0hkgdKNU4",
+            "name": "litellm-audio-pathsallowed-apikey"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all().sort((a, b) => a.json.chunkIndex - b.json.chunkIndex);\nconst parseWav = (buf) => {\n  if (buf.length < 44 || buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WAVE') throw new Error('Invalid WAV chunk');\n  let offset = 12;\n  let fmt;\n  let data;\n  while (offset + 8 <= buf.length) {\n    const id = buf.toString('ascii', offset, offset + 4);\n    const size = buf.readUInt32LE(offset + 4);\n    const start = offset + 8;\n    if (start + size > buf.length) throw new Error('Truncated WAV chunk');\n    if (id === 'fmt ') fmt = buf.subarray(start, start + size);\n    if (id === 'data') data = buf.subarray(start, start + size);\n    offset = start + size + (size % 2);\n  }\n  if (!fmt || !data || fmt.length < 16) throw new Error('WAV fmt/data chunk missing');\n  return {\n    audioFormat: fmt.readUInt16LE(0), channels: fmt.readUInt16LE(2),\n    sampleRate: fmt.readUInt32LE(4), byteRate: fmt.readUInt32LE(8),\n    blockAlign: fmt.readUInt16LE(12), bitsPerSample: fmt.readUInt16LE(14), data\n  };\n};\nconst waves = [];\nfor (let i = 0; i < items.length; i++) waves.push(parseWav(await this.helpers.getBinaryDataBuffer(i, 'data')));\nif (!waves.length) throw new Error('No WAV chunks to join');\nconst first = waves[0];\nfor (const wave of waves) {\n  if (wave.audioFormat !== 1 || wave.channels !== first.channels || wave.sampleRate !== first.sampleRate || wave.bitsPerSample !== first.bitsPerSample) {\n    throw new Error('Incompatible WAV formats');\n  }\n}\nconst pcm = Buffer.concat(waves.map(w => w.data));\nconst header = Buffer.alloc(44);\nheader.write('RIFF', 0); header.writeUInt32LE(36 + pcm.length, 4); header.write('WAVE', 8);\nheader.write('fmt ', 12); header.writeUInt32LE(16, 16); header.writeUInt16LE(first.audioFormat, 20);\nheader.writeUInt16LE(first.channels, 22); header.writeUInt32LE(first.sampleRate, 24);\nheader.writeUInt32LE(first.byteRate, 28); header.writeUInt16LE(first.blockAlign, 32);\nheader.writeUInt16LE(first.bitsPerSample, 34); header.write('data', 36); header.writeUInt32LE(pcm.length, 40);\nconst audio = Buffer.concat([header, pcm]);\nconst fileName = $('Plan Audio').first().json.fileName;\nconst duration = first.byteRate ? Math.round(pcm.length / first.byteRate) : 0;\nlet cursor = 0;\nconst cues = items.map((item, i) => {\n  const chunkDuration = first.byteRate ? waves[i].data.length / first.byteRate : 0;\n  const cue = { start: Number(cursor.toFixed(3)), end: Number((cursor + chunkDuration).toFixed(3)), anchor: item.json.anchor };\n  cursor += chunkDuration;\n  return cue;\n});\nconst plan = $('Plan Audio').first().json;\nreturn [{ json: { fileName, duration, mimeType: 'audio/wav', manifestName: plan.manifestName, cues }, binary: { data: await this.helpers.prepareBinaryData(audio, fileName, 'audio/wav') } }];"
+        },
+        "id": "7cdb9f92-4f2f-4687-b6fc-2f3d4c4924fa",
+        "name": "join-gemini-wav",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2432,
+          160
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpTemplatedCustomAuth",
+          "sendBody": true,
+          "contentType": "binaryData",
+          "inputDataFieldName": "data",
+          "options": {
+            "timeout": 120000
+          }
+        },
+        "id": "593ddbd2-d68d-4028-b097-5aaf56396ecd",
+        "name": "Upload to Bunny",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2880,
+          -240
+        ],
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 2000,
+        "credentials": {
+          "httpTemplatedCustomAuth": {
+            "id": "AfQQiJmsLPQUQKup",
+            "name": "bunny-storage-audio-apikey"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/slug/{{ $('Settings').first().json.slug }}/?formats=lexical&include=tags",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "ghostAdminApi",
+          "options": {}
+        },
+        "id": "0a3c8ba8-8c4d-4b8f-bba9-b067a905d057",
+        "name": "Get Latest Post",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          3104,
+          368
+        ],
+        "credentials": {
+          "ghostAdminApi": {
+            "id": "1A8x4AjzoI4VhxKp",
+            "name": "nautas-ghost-api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const cfg = $('Settings').first().json;\nconst plan = $('Plan Audio').first().json;\nconst post = $input.first().json.posts[0];\nconst lexical = JSON.parse(post.lexical);\nconst root = lexical.root.children;\nconst at = root.findIndex(n => n.type === 'audio' && String(n.src).startsWith(cfg.cdnBase));\n\nif (plan.action === 'stale') {\n  if (at < 0) return [];\n  root[at].title = plan.title;\n} else {\n  const audio = $('prepare-audio-upload').first().json;\n  const card = { type: 'audio', version: 1, src: `${cfg.cdnBase}/${cfg.audioDir}/${audio.fileName}`, title: plan.title, duration: audio.duration, mimeType: audio.mimeType, thumbnailSrc: '' };\n  if (at < 0) root.unshift(card); else root[at] = card;\n}\n\n// updated_at comes from a fresh read, so edits made while audio was generating are kept, not overwritten\nconst update = { lexical: JSON.stringify(lexical), updated_at: post.updated_at };\nif (post.tags.some(t => t.slug === 'hash-audio-refresh')) update.tags = post.tags.filter(t => t.slug !== 'hash-audio-refresh').map(t => ({ id: t.id }));\nreturn [{ json: { id: post.id, body: { posts: [update] } } }];\n"
+        },
+        "id": "98d76878-280a-429c-946e-dc8106bdb754",
+        "name": "Write Audio Card",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3328,
+          368
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/{{ $json.id }}/",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "ghostAdminApi",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ $json.body }}",
+          "options": {}
+        },
+        "id": "6f241f81-9afa-4db5-8bce-c38381e593d4",
+        "name": "Update Post",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          3552,
+          368
+        ],
+        "credentials": {
+          "ghostAdminApi": {
+            "id": "1A8x4AjzoI4VhxKp",
+            "name": "nautas-ghost-api"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "content": "## Setup\n1. **Settings**: six Gemini and six Qwen voice IDs, LiteLLM endpoints, Bunny storage and CDN URLs. Check ghostUrl.\n2. Credentials (Templated Custom Auth): **qwen-tts** and **gemini-tts** use {\"headers\":{\"Authorization\":\"Bearer {{api_key}}\"}}. **Upload to Bunny** uses {\"headers\":{\"AccessKey\":\"{{api_key}}\"}} with the storage-zone password.\n3. Qwen is primary and returns MP3. A quota/allocation/balance error regenerates the complete article in Gemini WAV; other Qwen errors stop the workflow. Mixed MP3/WAV chunks are never joined.\n4. Ghost Admin webhooks: Post published and Published post updated → production URL of **Ghost Webhook**, with event=published or event=edited and the configured shared secret. Manual Test bypasses validation.\n5. Tags: #audio opts in; #audio-refresh regenerates; #lang-es or an -es slug selects Spanish. Voice remains stable through hash(post.id).\n\nBefore synthesis, one HEAD request checks the deterministic Qwen MP3 URL. Existing files skip TTS and Bunny, then update only the Ghost card; #audio-refresh bypasses this check and versions the URL from the previous card to avoid stale CDN/browser audio. Both .mp3 and .wav cards are recognized as current.\n\nTest one published post first: set its slug in **Test Post**, bind LiteLLM/Bunny credentials, run **Manual Test**, then inspect the audio card and CDN. Existing published posts require a separate controlled backlog run; webhooks only cover future events.",
+          "height": 740,
+          "width": 900
+        },
+        "id": "e0a35b87-fd4e-44b1-bbd0-57b005dd6c85",
+        "name": "Setup",
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          -48,
+          368
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all();\nconst out = [];\nfor (let i = 0; i < items.length; i++) {\n  const response = items[i].json;\n  const parts = response.candidates?.[0]?.content?.parts || [];\n  const blob = parts.map(p => p.inlineData || p.inline_data).find(Boolean);\n  if (!blob?.data) {\n    const reason = response.promptFeedback?.blockReason || response.prompt_feedback?.block_reason || 'No audio returned';\n    throw new Error('Gemini TTS: ' + reason);\n  }\n  const audio = Buffer.from(blob.data, 'base64');\n  if (audio.length < 44 || audio.toString('ascii', 0, 4) !== 'RIFF' || audio.toString('ascii', 8, 12) !== 'WAVE') {\n    throw new Error('Gemini TTS returned invalid WAV data');\n  }\n  out.push({\n    json: { mimeType: blob.mimeType || blob.mime_type || 'audio/wav', chunkIndex: response.chunkIndex, anchor: response.anchor, fileBase: response.fileBase, manifestName: response.manifestName },\n    binary: { data: await this.helpers.prepareBinaryData(audio, 'chunk-' + (i + 1) + '.wav', 'audio/wav') },\n    pairedItem: { item: i }\n  });\n}\nreturn out;"
+        },
+        "id": "dfa09eab-c3a0-4770-aa7c-a375256d3256",
+        "name": "Decode WAV",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2208,
+          160
+        ],
+        "notes": "Why Code: Gemini returns base64 WAV inside JSON; native nodes cannot validate and decode all chunks into binary data in one step."
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Settings').first().json.qwenTtsUrl }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpTemplatedCustomAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ { model: $('Settings').first().json.qwenModel, input: { text: $json.text, voice: $json.qwenVoice, format: 'mp3', sample_rate: 24000, language_hints: [$json.language], instruction: $json.qwenInstruction, seed: 42 } } }}",
+          "options": {
+            "batching": {
+              "batch": {
+                "batchSize": 1,
+                "batchInterval": 500
+              }
+            },
+            "timeout": 240000
+          }
+        },
+        "id": "25b16858-d8ad-4a5a-aa9c-90def2ffd513",
+        "name": "qwen-tts",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2208,
+          -400
+        ],
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 2000,
+        "credentials": {
+          "httpTemplatedCustomAuth": {
+            "id": "SaBp2JC0hkgdKNU4",
+            "name": "litellm-audio-pathsallowed-apikey"
+          }
+        },
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "url": "={{ $json.output.audio.url }}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "file"
+              }
+            },
+            "timeout": 120000
+          }
+        },
+        "id": "207b8826-3e44-479b-b422-c9be38578814",
+        "name": "download-qwen-mp3",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2432,
+          -480
+        ],
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 2000
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": false,
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 2
+            },
+            "combinator": "or",
+            "conditions": [
+              {
+                "id": "qwen-quota-0",
+                "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+                "rightValue": "quota",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              },
+              {
+                "id": "qwen-quota-1",
+                "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+                "rightValue": "AllocationQuota",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              },
+              {
+                "id": "qwen-quota-2",
+                "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+                "rightValue": "free tier",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              },
+              {
+                "id": "qwen-quota-3",
+                "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+                "rightValue": "insufficient balance",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              },
+              {
+                "id": "qwen-quota-4",
+                "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+                "rightValue": "arrearage",
+                "operator": {
+                  "type": "string",
+                  "operation": "contains"
+                }
+              }
+            ]
+          },
+          "options": {
+            "ignoreCase": true
+          }
+        },
+        "id": "921f50ff-925c-4590-b434-458bfa5e07bd",
+        "name": "qwen-quota-exhausted?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          2432,
+          -240
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "// A mid-article quota failure restarts every chunk in Gemini to avoid mixed audio formats.\nreturn $('Plan Audio').all().map(item => ({ json: { ...item.json, fallbackFromQwen: true }, pairedItem: item.pairedItem }));"
+        },
+        "id": "b19bc11d-3eec-4b7f-92f1-d2c7dd43187b",
+        "name": "restore-gemini-plan",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          -240
+        ],
+        "notes": "Why Code: restores all Plan Audio chunks after quota exhaustion so Gemini regenerates a complete, format-consistent article."
+      },
+      {
+        "parameters": {
+          "errorMessage": "={{ 'Qwen TTS failed with a non-quota error: ' + JSON.stringify($json) }}"
+        },
+        "id": "37b4b1b3-fc3d-4bae-963b-0de5478f86b9",
+        "name": "stop-non-quota-error",
+        "type": "n8n-nodes-base.stopAndError",
+        "typeVersion": 1,
+        "position": [
+          2656,
+          -80
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all().map((item, index) => ({ item, index })).sort((a, b) => a.item.json.chunkIndex - b.item.json.chunkIndex);\nconst stripId3v2 = (buf) => {\n  let offset = 0;\n  while (offset + 10 <= buf.length && buf.toString('ascii', offset, offset + 3) === 'ID3') {\n    const size = ((buf[offset + 6] & 0x7f) << 21) | ((buf[offset + 7] & 0x7f) << 14) | ((buf[offset + 8] & 0x7f) << 7) | (buf[offset + 9] & 0x7f);\n    const footer = (buf[offset + 5] & 0x10) ? 10 : 0;\n    offset += 10 + size + footer;\n  }\n  if (offset >= buf.length) throw new Error('Invalid MP3 chunk');\n  return buf.subarray(offset);\n};\nconst chunks = [];\nconst cues = [];\nlet cursor = 0;\nfor (const entry of items) {\n  const buf = stripId3v2(await this.helpers.getBinaryDataBuffer(entry.index, 'data'));\n  if (buf.length < 2 || buf[0] !== 0xff || (buf[1] & 0xe0) !== 0xe0) throw new Error('Qwen returned invalid MP3 data');\n  chunks.push(buf);\n  const chunkDuration = buf.length * 8 / 160000;\n  cues.push({ start: Number(cursor.toFixed(3)), end: Number((cursor + chunkDuration).toFixed(3)), anchor: entry.item.json.anchor });\n  cursor += chunkDuration;\n}\nif (!chunks.length) throw new Error('No MP3 chunks to join');\nconst audio = Buffer.concat(chunks);\nconst plan = $('Plan Audio').first().json;\nconst fileName = plan.fileBase + '.mp3';\nconst duration = Math.round(cursor);\nreturn [{ json: { fileName, duration, mimeType: 'audio/mpeg', provider: 'qwen', manifestName: plan.manifestName, cues }, binary: { data: await this.helpers.prepareBinaryData(audio, fileName, 'audio/mpeg') } }];"
+        },
+        "id": "91b945f5-77b7-463a-8625-a26cb40c6108",
+        "name": "join-qwen-mp3",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          -480
+        ],
+        "notes": "Why Code: strips ID3v2 headers and safely concatenates independently encoded Qwen MP3 chunks."
+      },
+      {
+        "parameters": {},
+        "id": "d60f952c-f251-41f4-99d6-e79d4806ac0e",
+        "name": "prepare-audio-upload",
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          2656,
+          -400
+        ]
+      },
+      {
+        "parameters": {},
+        "id": "c8939476-9778-4c15-a4cd-1d000d9182c0",
+        "name": "first-chunk",
+        "type": "n8n-nodes-base.limit",
+        "typeVersion": 1,
+        "position": [
+          1328,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "method": "HEAD",
+          "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName.replace(/\\.[^.]+$/, '.mp3') }}",
+          "options": {
+            "response": {
+              "response": {
+                "fullResponse": true,
+                "neverError": true,
+                "responseFormat": "text"
+              }
+            },
+            "timeout": 30000
+          }
+        },
+        "id": "7fe5aded-f03f-4194-be36-b7b500880ea3",
+        "name": "check-existing-audio",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          1552,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "existing-audio",
+                "leftValue": "={{ $json.statusCode === 200 && !$('Plan Audio').first().json.refresh && $('Settings').first().json.event !== 'manual' ? 'yes' : 'no' }}",
+                "rightValue": "yes",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "beb1ac15-787a-4c2d-867e-a03ae8d314db",
+        "name": "audio-exists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1776,
+          0
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "return $('Plan Audio').all();"
+        },
+        "id": "64c2fe44-103f-4bba-865c-dbe8aa04779b",
+        "name": "restore-generation-plan",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1984,
+          -160
+        ],
+        "notes": "Why Code: restores all chunks after the single-item CDN existence check."
+      },
+      {
+        "parameters": {
+          "jsCode": "const plan = $('Plan Audio').first().json;\nconst response = $('check-existing-audio').first().json;\nconst fileName = plan.fileName.replace(/\\.[^.]+$/, '.mp3');\nconst bytes = Number(response.headers?.['content-length'] || 0);\nconst duration = plan.existingDuration || (bytes ? Math.round(bytes * 8 / 160000) : 0);\nreturn [{ json: { fileName, duration, mimeType: 'audio/mpeg', provider: 'existing' } }];"
+        },
+        "id": "084a6b79-da06-4ec6-887b-0c9a345b3e05",
+        "name": "use-existing-audio",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2432,
+          -128
+        ],
+        "notes": "Why Code: constructs Ghost card metadata from an existing CDN object without synthesizing or uploading audio."
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "upload-required",
+                "leftValue": "={{ $json.provider === 'existing' ? 'no' : 'yes' }}",
+                "rightValue": "yes",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "5ab6a787-04ea-4e06-bacc-863a13b8d04b",
+        "name": "upload-required?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          2656,
+          -128
+        ]
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "id": "ed96d243-8de1-4e15-9507-e5bd0fc88f3c",
+        "name": "chunk-loop",
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          1984,
+          -400
+        ]
+      },
+      {
+        "parameters": {
+          "method": "HEAD",
+          "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $json.chunkFileName }}",
+          "options": {
+            "response": {
+              "response": {
+                "fullResponse": true,
+                "neverError": true,
+                "responseFormat": "text"
+              }
+            },
+            "timeout": 30000
+          }
+        },
+        "id": "ce801b0f-f7d8-4ea3-bc9e-7960c0affaa3",
+        "name": "check-chunk-audio",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2208,
+          -640
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "chunk-exists",
+                "leftValue": "={{ $json.statusCode === 200 ? 'yes' : 'no' }}",
+                "rightValue": "yes",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "47335839-5ca5-478f-9932-c4f1cf5f0bd0",
+        "name": "chunk-exists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          2432,
+          -720
+        ]
+      },
+      {
+        "parameters": {},
+        "id": "4f0bef3a-a93f-43ca-b937-7abcb7d4c4ab",
+        "name": "chunk-ready",
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          2880,
+          -560
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $('chunk-loop').first().json.chunkFileName }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpTemplatedCustomAuth",
+          "sendBody": true,
+          "contentType": "binaryData",
+          "inputDataFieldName": "data",
+          "options": {
+            "timeout": 120000
+          }
+        },
+        "id": "86b5c34b-8294-4fe5-b5c6-cb8b2cce58f6",
+        "name": "upload-chunk",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2656,
+          -560
+        ],
+        "credentials": {
+          "httpTemplatedCustomAuth": {
+            "id": "AfQQiJmsLPQUQKup",
+            "name": "bunny-storage-audio-apikey"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "id": "6a1d0592-6f44-4884-8ca0-834bde8b1059",
+        "name": "chunk-loop-done",
+        "type": "n8n-nodes-base.limit",
+        "typeVersion": 1,
+        "position": [
+          2208,
+          -960
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "return $('Plan Audio').all();"
+        },
+        "id": "067185e5-49b4-4cc9-958a-538dc9ca4806",
+        "name": "restore-cached-plan",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2432,
+          -960
+        ]
+      },
+      {
+        "parameters": {
+          "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $json.chunkFileName }}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "file"
+              }
+            },
+            "timeout": 120000
+          }
+        },
+        "id": "bb06d0e7-8baf-4d72-9583-bafdde17915f",
+        "name": "download-cached-chunks",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          2656,
+          -960
+        ]
+      },
+      {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
+        "id": "7859d18b-dc5d-403d-9d5a-d230509ad775",
+        "name": "backlog-trigger",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          0,
+          416
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const audio = $('prepare-audio-upload').first().json;\nif (!audio.manifestName || !Array.isArray(audio.cues)) throw new Error('Missing audio manifest metadata');\nconst manifest = JSON.stringify({ version: 1, audio: audio.fileName, duration: audio.duration, cues: audio.cues });\nconst data = Buffer.from(manifest, 'utf8');\nreturn [{ json: { fileName: audio.manifestName, mimeType: 'application/json' }, binary: { data: await this.helpers.prepareBinaryData(data, audio.manifestName, 'application/json') } }];"
+        },
+        "id": "49249583-3582-4713-8ff9-6c245ff19ad8",
+        "name": "prepare-manifest",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3104,
+          -240
+        ]
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpTemplatedCustomAuth",
+          "sendBody": true,
+          "contentType": "binaryData",
+          "inputDataFieldName": "data",
+          "options": {
+            "timeout": 120000
+          }
+        },
+        "id": "76c8f8b9-1adf-4a0b-a32c-b04b66e0e30d",
+        "name": "upload-manifest",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.5,
+        "position": [
+          3328,
+          -240
+        ],
+        "credentials": {
+          "httpTemplatedCustomAuth": {
+            "id": "AfQQiJmsLPQUQKup",
+            "name": "bunny-storage-audio-apikey"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const current = $('chunk-loop').first().json;\nconst response = $input.first().json;\nreturn [{ json: { ...current, cacheStatus: response.statusCode } }];"
+        },
+        "id": "557a69a4-f8e9-4f83-b1dd-d90ba8763c73",
+        "name": "restore-chunk-request",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          -800
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "const current = $('chunk-loop').first().json;\nreturn [{ json: { ...current, ...$input.first().json } }];"
+        },
+        "id": "383787be-37e0-4877-a8c3-dde77fda5862",
+        "name": "restore-qwen-response",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          -400
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "const plan = $('restore-cached-plan').item.json;\nreturn { json: { ...plan }, binary: $input.item.binary };"
+        },
+        "id": "27cec617-48b4-431e-a345-2dfe17f1d683",
+        "name": "restore-cached-download-metadata",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2880,
+          -960
+        ]
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForEachItem",
+          "jsCode": "const plan = $('restore-gemini-plan').item.json;\nreturn { json: { ...plan, ...$input.item.json } }; "
+        },
+        "id": "1b0e992f-951d-40bb-b3fb-5ecc89144634",
+        "name": "restore-gemini-response",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2656,
+          160
+        ]
+      }
+    ],
+    "connections": {
+      "Manual Test": {
+        "main": [
+          [
+            {
+              "node": "Test Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Test Post": {
+        "main": [
+          [
+            {
+              "node": "Settings",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Settings": {
+        "main": [
+          [
+            {
+              "node": "Get Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Post": {
+        "main": [
+          [
+            {
+              "node": "Plan Audio",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Plan Audio": {
+        "main": [
+          [
+            {
+              "node": "New Audio?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "New Audio?": {
+        "main": [
+          [
+            {
+              "node": "first-chunk",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Get Latest Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Latest Post": {
+        "main": [
+          [
+            {
+              "node": "Write Audio Card",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Write Audio Card": {
+        "main": [
+          [
+            {
+              "node": "Update Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Decode WAV": {
+        "main": [
+          [
+            {
+              "node": "join-gemini-wav",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "qwen-tts": {
+        "main": [
+          [
+            {
+              "node": "restore-qwen-response",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "qwen-quota-exhausted?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "qwen-quota-exhausted?": {
+        "main": [
+          [
+            {
+              "node": "restore-gemini-plan",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "stop-non-quota-error",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-gemini-plan": {
+        "main": [
+          [
+            {
+              "node": "gemini-tts",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "join-qwen-mp3": {
+        "main": [
+          [
+            {
+              "node": "prepare-audio-upload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "join-gemini-wav": {
+        "main": [
+          [
+            {
+              "node": "prepare-audio-upload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "first-chunk": {
+        "main": [
+          [
+            {
+              "node": "check-existing-audio",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "check-existing-audio": {
+        "main": [
+          [
+            {
+              "node": "audio-exists?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "audio-exists?": {
+        "main": [
+          [
+            {
+              "node": "use-existing-audio",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "restore-generation-plan",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "use-existing-audio": {
+        "main": [
+          [
+            {
+              "node": "prepare-audio-upload",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "prepare-audio-upload": {
+        "main": [
+          [
+            {
+              "node": "upload-required?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "upload-required?": {
+        "main": [
+          [
+            {
+              "node": "Upload to Bunny",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Get Latest Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-generation-plan": {
+        "main": [
+          [
+            {
+              "node": "chunk-loop",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "chunk-loop": {
+        "main": [
+          [
+            {
+              "node": "chunk-loop-done",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "check-chunk-audio",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "check-chunk-audio": {
+        "main": [
+          [
+            {
+              "node": "chunk-exists?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "chunk-exists?": {
+        "main": [
+          [
+            {
+              "node": "chunk-ready",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "restore-chunk-request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "download-qwen-mp3": {
+        "main": [
+          [
+            {
+              "node": "upload-chunk",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "upload-chunk": {
+        "main": [
+          [
+            {
+              "node": "chunk-ready",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "chunk-ready": {
+        "main": [
+          [
+            {
+              "node": "chunk-loop",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "chunk-loop-done": {
+        "main": [
+          [
+            {
+              "node": "restore-cached-plan",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-cached-plan": {
+        "main": [
+          [
+            {
+              "node": "download-cached-chunks",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "backlog-trigger": {
+        "main": [
+          [
+            {
+              "node": "Settings",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Upload to Bunny": {
+        "main": [
+          [
+            {
+              "node": "prepare-manifest",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "prepare-manifest": {
+        "main": [
+          [
+            {
+              "node": "upload-manifest",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "upload-manifest": {
+        "main": [
+          [
+            {
+              "node": "Get Latest Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-chunk-request": {
+        "main": [
+          [
+            {
+              "node": "qwen-tts",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-qwen-response": {
+        "main": [
+          [
+            {
+              "node": "download-qwen-mp3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "download-cached-chunks": {
+        "main": [
+          [
+            {
+              "node": "restore-cached-download-metadata",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-cached-download-metadata": {
+        "main": [
+          [
+            {
+              "node": "join-qwen-mp3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "gemini-tts": {
+        "main": [
+          [
+            {
+              "node": "restore-gemini-response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "restore-gemini-response": {
+        "main": [
+          [
+            {
+              "node": "Decode WAV",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Ghost Webhook": {
+        "main": [
+          [
+            {
+              "node": "Settings",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [
+      {
+        "id": "78cdd265-c4b3-46e5-bbf6-bcecc8b1ac98",
+        "name": "Read & plan",
+        "nodeIds": [
+          "9691d170-8d67-47b2-bc4e-3fb5352aa731",
+          "24403ac4-adf3-40c8-928f-bc509dd0e782",
+          "b902f859-3893-42ff-b341-14235028e2a2",
+          "a16bb74e-9cc5-4003-9246-380538b39817"
+        ],
+        "description": "Loads the post's lexical, fingerprints its text and decides: new audio, refresh, mark stale, or stop."
+      },
+      {
+        "id": "68787873-c279-4fde-85b1-7fbaa5d84a9a",
+        "name": "Write to Ghost",
+        "nodeIds": [
+          "0a3c8ba8-8c4d-4b8f-bba9-b067a905d057",
+          "98d76878-280a-429c-946e-dc8106bdb754",
+          "6f241f81-9afa-4db5-8bce-c38381e593d4"
+        ],
+        "description": "Re-reads the post, inserts or replaces the audio card (or retitles it as stale) and saves."
+      },
+      {
+        "id": "83b31e29-56d1-48b7-8083-6ce50606cacd",
+        "name": "Generate audio",
+        "nodeIds": [
+          "c8939476-9778-4c15-a4cd-1d000d9182c0",
+          "7fe5aded-f03f-4194-be36-b7b500880ea3",
+          "beb1ac15-787a-4c2d-867e-a03ae8d314db",
+          "084a6b79-da06-4ec6-887b-0c9a345b3e05",
+          "64c2fe44-103f-4bba-865c-dbe8aa04779b",
+          "ed96d243-8de1-4e15-9507-e5bd0fc88f3c",
+          "ce801b0f-f7d8-4ea3-bc9e-7960c0affaa3",
+          "47335839-5ca5-478f-9932-c4f1cf5f0bd0",
+          "557a69a4-f8e9-4f83-b1dd-d90ba8763c73",
+          "4f0bef3a-a93f-43ca-b937-7abcb7d4c4ab",
+          "25b16858-d8ad-4a5a-aa9c-90def2ffd513",
+          "383787be-37e0-4877-a8c3-dde77fda5862",
+          "207b8826-3e44-479b-b422-c9be38578814",
+          "86b5c34b-8294-4fe5-b5c6-cb8b2cce58f6",
+          "921f50ff-925c-4590-b434-458bfa5e07bd",
+          "b19bc11d-3eec-4b7f-92f1-d2c7dd43187b",
+          "37b4b1b3-fc3d-4bae-963b-0de5478f86b9",
+          "f843ffb2-a419-4a66-a710-10c505f2a82e",
+          "1b0e992f-951d-40bb-b3fb-5ecc89144634",
+          "dfa09eab-c3a0-4770-aa7c-a375256d3256",
+          "6a1d0592-6f44-4884-8ca0-834bde8b1059",
+          "067185e5-49b4-4cc9-958a-538dc9ca4806",
+          "bb06d0e7-8baf-4d72-9583-bafdde17915f",
+          "27cec617-48b4-431e-a345-2dfe17f1d683",
+          "91b945f5-77b7-463a-8625-a26cb40c6108",
+          "7cdb9f92-4f2f-4687-b6fc-2f3d4c4924fa",
+          "d60f952c-f251-41f4-99d6-e79d4806ac0e"
+        ],
+        "description": "Reuses semantic chunks, restores metadata across HTTP nodes, synthesizes missing audio and publishes ordered audio with cue manifest."
+      }
+    ],
+    "authors": "D C (via MCP)",
+    "name": "Keep refreshed audio fingerprint stable",
+    "description": "Removes the refresh-only filename salt so webhook follow-up events recognize refreshed audio as current instead of marking it stale.",
+    "autosaved": false,
+    "createdAt": "2026-11-19T04:52:49.862Z",
+    "updatedAt": "2026-11-19T04:52:49.862Z"
+  },
+  "activeVersionId": "c3e0be82-9c46-4dd4-8975-0f71a32fb558",
+  "connections": {
+    "Manual Test": {
+      "main": [
+        [
+          {
+            "node": "Test Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test Post": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Post": {
+      "main": [
+        [
+          {
+            "node": "Plan Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plan Audio": {
+      "main": [
+        [
+          {
+            "node": "New Audio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Audio?": {
+      "main": [
+        [
+          {
+            "node": "first-chunk",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Latest Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Latest Post": {
+      "main": [
+        [
+          {
+            "node": "Write Audio Card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Audio Card": {
+      "main": [
+        [
+          {
+            "node": "Update Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decode WAV": {
+      "main": [
+        [
+          {
+            "node": "join-gemini-wav",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "qwen-tts": {
+      "main": [
+        [
+          {
+            "node": "restore-qwen-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "qwen-quota-exhausted?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "qwen-quota-exhausted?": {
+      "main": [
+        [
+          {
+            "node": "restore-gemini-plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "stop-non-quota-error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-gemini-plan": {
+      "main": [
+        [
+          {
+            "node": "gemini-tts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "join-qwen-mp3": {
+      "main": [
+        [
+          {
+            "node": "prepare-audio-upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "join-gemini-wav": {
+      "main": [
+        [
+          {
+            "node": "prepare-audio-upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "first-chunk": {
+      "main": [
+        [
+          {
+            "node": "check-existing-audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-existing-audio": {
+      "main": [
+        [
+          {
+            "node": "audio-exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "audio-exists?": {
+      "main": [
+        [
+          {
+            "node": "use-existing-audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "restore-generation-plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "use-existing-audio": {
+      "main": [
+        [
+          {
+            "node": "prepare-audio-upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prepare-audio-upload": {
+      "main": [
+        [
+          {
+            "node": "upload-required?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload-required?": {
+      "main": [
+        [
+          {
+            "node": "Upload to Bunny",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Latest Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-generation-plan": {
+      "main": [
+        [
+          {
+            "node": "chunk-loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chunk-loop": {
+      "main": [
+        [
+          {
+            "node": "chunk-loop-done",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "check-chunk-audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-chunk-audio": {
+      "main": [
+        [
+          {
+            "node": "chunk-exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chunk-exists?": {
+      "main": [
+        [
+          {
+            "node": "chunk-ready",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "restore-chunk-request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download-qwen-mp3": {
+      "main": [
+        [
+          {
+            "node": "upload-chunk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload-chunk": {
+      "main": [
+        [
+          {
+            "node": "chunk-ready",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chunk-ready": {
+      "main": [
+        [
+          {
+            "node": "chunk-loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chunk-loop-done": {
+      "main": [
+        [
+          {
+            "node": "restore-cached-plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-cached-plan": {
+      "main": [
+        [
+          {
+            "node": "download-cached-chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "backlog-trigger": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to Bunny": {
+      "main": [
+        [
+          {
+            "node": "prepare-manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prepare-manifest": {
+      "main": [
+        [
+          {
+            "node": "upload-manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload-manifest": {
+      "main": [
+        [
+          {
+            "node": "Get Latest Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-chunk-request": {
+      "main": [
+        [
+          {
+            "node": "qwen-tts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-qwen-response": {
+      "main": [
+        [
+          {
+            "node": "download-qwen-mp3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download-cached-chunks": {
+      "main": [
+        [
+          {
+            "node": "restore-cached-download-metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-cached-download-metadata": {
+      "main": [
+        [
+          {
+            "node": "join-qwen-mp3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini-tts": {
+      "main": [
+        [
+          {
+            "node": "restore-gemini-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "restore-gemini-response": {
+      "main": [
+        [
+          {
+            "node": "Decode WAV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ghost Webhook": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-08-16T03:40:41.280Z",
+  "id": "F6VXxRCdbTYba3ME",
+  "isArchived": false,
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ghost-tts-audio",
+  "nodeGroups": [
+    {
+      "id": "78cdd265-c4b3-46e5-bbf6-bcecc8b1ac98",
+      "name": "Read & plan",
+      "nodeIds": [
+        "9691d170-8d67-47b2-bc4e-3fb5352aa731",
+        "24403ac4-adf3-40c8-928f-bc509dd0e782",
+        "b902f859-3893-42ff-b341-14235028e2a2",
+        "a16bb74e-9cc5-4003-9246-380538b39817"
+      ],
+      "description": "Loads the post's lexical, fingerprints its text and decides: new audio, refresh, mark stale, or stop."
+    },
+    {
+      "id": "68787873-c279-4fde-85b1-7fbaa5d84a9a",
+      "name": "Write to Ghost",
+      "nodeIds": [
+        "0a3c8ba8-8c4d-4b8f-bba9-b067a905d057",
+        "98d76878-280a-429c-946e-dc8106bdb754",
+        "6f241f81-9afa-4db5-8bce-c38381e593d4"
+      ],
+      "description": "Re-reads the post, inserts or replaces the audio card (or retitles it as stale) and saves."
+    },
+    {
+      "id": "83b31e29-56d1-48b7-8083-6ce50606cacd",
+      "name": "Generate audio",
+      "nodeIds": [
+        "c8939476-9778-4c15-a4cd-1d000d9182c0",
+        "7fe5aded-f03f-4194-be36-b7b500880ea3",
+        "beb1ac15-787a-4c2d-867e-a03ae8d314db",
+        "084a6b79-da06-4ec6-887b-0c9a345b3e05",
+        "64c2fe44-103f-4bba-865c-dbe8aa04779b",
+        "ed96d243-8de1-4e15-9507-e5bd0fc88f3c",
+        "ce801b0f-f7d8-4ea3-bc9e-7960c0affaa3",
+        "47335839-5ca5-478f-9932-c4f1cf5f0bd0",
+        "557a69a4-f8e9-4f83-b1dd-d90ba8763c73",
+        "4f0bef3a-a93f-43ca-b937-7abcb7d4c4ab",
+        "25b16858-d8ad-4a5a-aa9c-90def2ffd513",
+        "383787be-37e0-4877-a8c3-dde77fda5862",
+        "207b8826-3e44-479b-b422-c9be38578814",
+        "86b5c34b-8294-4fe5-b5c6-cb8b2cce58f6",
+        "921f50ff-925c-4590-b434-458bfa5e07bd",
+        "b19bc11d-3eec-4b7f-92f1-d2c7dd43187b",
+        "37b4b1b3-fc3d-4bae-963b-0de5478f86b9",
+        "f843ffb2-a419-4a66-a710-10c505f2a82e",
+        "1b0e992f-951d-40bb-b3fb-5ecc89144634",
+        "dfa09eab-c3a0-4770-aa7c-a375256d3256",
+        "6a1d0592-6f44-4884-8ca0-834bde8b1059",
+        "067185e5-49b4-4cc9-958a-538dc9ca4806",
+        "bb06d0e7-8baf-4d72-9583-bafdde17915f",
+        "27cec617-48b4-431e-a345-2dfe17f1d683",
+        "91b945f5-77b7-463a-8625-a26cb40c6108",
+        "7cdb9f92-4f2f-4687-b6fc-2f3d4c4924fa",
+        "d60f952c-f251-41f4-99d6-e79d4806ac0e"
+      ],
+      "description": "Reuses semantic chunks, restores metadata across HTTP nodes, synthesizes missing audio and publishes ordered audio with cue manifest."
+    }
+  ],
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "redacted",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "id": "aca2f4f4-7345-4bbf-a62b-b4d09cc47d5c",
+      "name": "Ghost Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "aRaL6EnhlVPrVBcw",
+          "name": "ghost-read-qwen-tts"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "7065dcee-9062-4efe-9426-9dadf62916b2",
+      "name": "Manual Test",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "68b2019a-30f5-4943-911f-8fbf8099b5a7",
+              "name": "slug",
+              "value": "merito",
+              "type": "string"
+            },
+            {
+              "id": "cf1295f6-d149-4618-94eb-9f0c01df8b5f",
+              "name": "event",
+              "value": "manual",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "18f740be-879f-4288-b28e-1552bea2ca3e",
+      "name": "Test Post",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "11d1cbdc-3917-45a1-86b6-881356616825",
+              "name": "slug",
+              "value": "={{ $json.body?.post?.current?.slug ?? $json.slug }}",
+              "type": "string"
+            },
+            {
+              "id": "eb04c326-41c9-4d6a-8de6-c61d0440b2fc",
+              "name": "event",
+              "value": "={{ $json.query?.event ?? $json.event ?? 'edited' }}",
+              "type": "string"
+            },
+            {
+              "id": "7caa1306-6f85-4c97-97dd-a8791eeee0cc",
+              "name": "ghostUrl",
+              "value": "https://criptonautas.co",
+              "type": "string"
+            },
+            {
+              "id": "11984a30-3bdb-4382-bcd1-3255e34f6e22",
+              "name": "ttsUrl",
+              "value": "https://llm.criptonautas.co/vertex_ai/v1beta1/projects/nautas/locations/global/publishers/google/models/gemini-3.8-flash-tts:generateContent",
+              "type": "string"
+            },
+            {
+              "id": "36feca02-801a-4bf1-a528-9bc1d216a5ae",
+              "name": "titleEn",
+              "value": "by The Archivist (AI voice)",
+              "type": "string"
+            },
+            {
+              "id": "d8c83a3b-8fae-4ef4-8df9-48530c3cdad7",
+              "name": "titleEs",
+              "value": "por La Operadora (voz desde IA)",
+              "type": "string"
+            },
+            {
+              "id": "a7421402-6d21-4c40-9cf8-f17450bb9a3c",
+              "name": "staleEn",
+              "value": "Audio from an earlier version of this article",
+              "type": "string"
+            },
+            {
+              "id": "11f4d31b-036c-4782-bec0-a0519501b550",
+              "name": "staleEs",
+              "value": "Audio de la versión inicial de este artículo",
+              "type": "string"
+            },
+            {
+              "id": "71e7b589-3f49-4633-b1ed-082a15bac1fc",
+              "name": "chunkChars",
+              "value": 1500,
+              "type": "number"
+            },
+            {
+              "id": "1c5ad154-b1b7-4c8e-a2bb-9262a80ea20c",
+              "name": "bunnyStorageUrl",
+              "value": "https://br.storage.bunnycdn.com/criptonautas",
+              "type": "string"
+            },
+            {
+              "id": "9c298afb-4d32-457f-9ef5-f96424b5776d",
+              "name": "cdnBase",
+              "value": "https://cdn-box.criptonautas.co",
+              "type": "string"
+            },
+            {
+              "id": "30efd559-0732-4061-a68e-fa35a46c197e",
+              "name": "audioDir",
+              "value": "blog-tts",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-0",
+              "name": "voiceEnTransatlantic",
+              "value": "voice_d3abfd16-0062-4b0f-88b9-6ec29dee559c",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-1",
+              "name": "voiceEnCanadian",
+              "value": "voice_9abf0c25-87dd-4f60-bdd7-01f3ad34a173",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-2",
+              "name": "voiceEnPnw",
+              "value": "voice_9dbd0ad9-4692-4960-94b9-a53448078fce",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-3",
+              "name": "voiceEsMx",
+              "value": "voice_4017e2db-4355-4520-9777-9a14a9ee338f",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-4",
+              "name": "voiceEsCo",
+              "value": "voice_7f14c6f4-8896-4536-958e-8aac3a7d95aa",
+              "type": "string"
+            },
+            {
+              "id": "gemini-voice-5",
+              "name": "voiceEsAr",
+              "value": "voice_f207ac5d-ae6a-43cf-a6d3-d6604e40a40c",
+              "type": "string"
+            },
+            {
+              "id": "audio-extension",
+              "name": "audioExtension",
+              "value": "wav",
+              "type": "string"
+            },
+            {
+              "id": "qwen-url",
+              "name": "qwenTtsUrl",
+              "value": "https://llm.criptonautas.co/qwen/tts",
+              "type": "string"
+            },
+            {
+              "id": "qwen-model",
+              "name": "qwenModel",
+              "value": "qwen-audio-3.1-tts-flash",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-0",
+              "name": "qwenVoiceEnTransatlantic",
+              "value": "qwen-audio-3.1-tts-flash-archtsp-0eec67bb1e2c4210ba9ab95458c997bf",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-1",
+              "name": "qwenVoiceEnCanadian",
+              "value": "qwen-audio-3.1-tts-flash-archcap-862b560b29fd4ad0be9c9ae10be01bd1",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-2",
+              "name": "qwenVoiceEnPnw",
+              "value": "qwen-audio-3.1-tts-flash-archpnwp-7420792d6fe745308144c7e42c09239d",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-3",
+              "name": "qwenVoiceEsMx",
+              "value": "qwen-audio-3.1-tts-flash-operamxp-f45c1b8ef6dd4045920b0c8623c1ab93",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-4",
+              "name": "qwenVoiceEsCo",
+              "value": "qwen-audio-3.1-tts-flash-operacop-4064e30259ee4722a0358b7192392b80",
+              "type": "string"
+            },
+            {
+              "id": "qwen-voice-5",
+              "name": "qwenVoiceEsAr",
+              "value": "qwen-audio-3.1-tts-flash-operaarp-18f22ba93ae348d48c92d8603ac335fb",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9691d170-8d67-47b2-bc4e-3fb5352aa731",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/slug/{{ $('Settings').first().json.slug }}/?formats=lexical&include=tags",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "ghostAdminApi",
+        "options": {}
+      },
+      "id": "24403ac4-adf3-40c8-928f-bc509dd0e782",
+      "name": "Get Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        672,
+        0
+      ],
+      "credentials": {
+        "ghostAdminApi": {
+          "id": "1A8x4AjzoI4VhxKp",
+          "name": "nautas-ghost-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const cfg = $('Settings').first().json;\nconst post = $input.first().json.posts[0];\nconst tags = post.tags.map(t => t.slug);\nif (!tags.includes('hash-audio') && !['manual', 'backlog'].includes(cfg.event)) return [];\nif (post.status !== 'published' && cfg.event !== 'manual') return [];\nconst refresh = tags.includes('hash-audio-refresh');\n\n// Read text from lexical so the inserted audio card never changes the fingerprint; code blocks and images are skipped on purpose\n// The AI summary toggle (\"resumen\"/\"summary\", from Ghost: AI Summary Card) is skipped too, so adding it does not mark the audio stale\nconst isSummary = n => n.type === 'toggle' && ['resumen', 'summary'].includes(String(n.heading || '').replace(/<[^>]+>/g, '').trim());\nconst textOf = n => n.type === 'audio' || isSummary(n) ? '' : typeof n.text === 'string' ? n.text : (n.children || []).map(textOf).join(['root', 'list'].includes(n.type) ? '\\n' : '');\nconst lexical = JSON.parse(post.lexical);\nconst rawText = (post.title + '.\\n' + textOf(lexical.root)).replace(/[ \\t]+/g, ' ').replace(/\\s*\\n\\s*/g, '\\n').trim();\nconst sections = [];\nlet section;\nlet contentBlock = -1;\nconst addBlock = (value, block, type) => {\n  const raw = String(value || '').replace(/[ \\t]+/g, ' ').trim();\n  if (!raw) return;\n  if (type === 'heading' || type === 'extended-heading' || !section) {\n    section = { anchor: block, text: '' };\n    sections.push(section);\n  }\n  section.text += (section.text ? '\\n' : '') + raw;\n};\naddBlock(post.title, -1, 'title');\nfor (const node of lexical.root.children) {\n  if (node.type === 'audio') continue;\n  contentBlock++;\n  addBlock(textOf(node), contentBlock, node.type);\n}\n\n// From the site, not the post: a guess from the slug read Spanish posts without -es as English.\nconst lang = /^https:\\/\\/en\\./.test(cfg.ghostUrl) ? 'en' : 'es';\n\nfunction spanishInteger(value) {\n  const n = Number(value);\n  if (!Number.isSafeInteger(n) || n < 0 || n >= 1000000000) return String(value);\n  if (n === 0) return 'cero';\n  const units = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];\n  const specials = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];\n  const twenties = ['veinte', 'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis', 'veintisiete', 'veintiocho', 'veintinueve'];\n  const tens = ['', '', '', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];\n  const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];\n  const under100 = x => x < 10 ? units[x] : x < 20 ? specials[x - 10] : x < 30 ? twenties[x - 20] : tens[Math.floor(x / 10)] + (x % 10 ? ' y ' + units[x % 10] : '');\n  const under1000 = x => x === 100 ? 'cien' : x < 100 ? under100(x) : hundreds[Math.floor(x / 100)] + (x % 100 ? ' ' + under100(x % 100) : '');\n  if (n < 1000) return under1000(n);\n  if (n < 1000000) {\n    const thousands = Math.floor(n / 1000), rest = n % 1000;\n    return (thousands === 1 ? 'mil' : under1000(thousands) + ' mil') + (rest ? ' ' + under1000(rest) : '');\n  }\n  const millions = Math.floor(n / 1000000), rest = n % 1000000;\n  return (millions === 1 ? 'un millón' : under1000(millions) + ' millones') + (rest ? ' ' + spanishInteger(rest) : '');\n}\nfunction spanishNumber(raw) {\n  const value = String(raw);\n  if (/^\\d{1,3}(?:\\.\\d{3})+$/.test(value)) return spanishInteger(value.replace(/\\./g, ''));\n  const decimal = value.match(/^(\\d+),(\\d+)$/);\n  if (decimal) {\n    const fraction = decimal[2];\n    const leading = fraction.match(/^0+/)?.[0].length || 0;\n    const fractionalWords = leading === fraction.length\n      ? fraction.split('').map(() => 'cero').join(' ')\n      : (leading ? 'cero '.repeat(leading) : '') + spanishInteger(Number(fraction));\n    return spanishInteger(decimal[1]) + ' coma ' + fractionalWords;\n  }\n  return /^\\d+$/.test(value) ? spanishInteger(value) : value;\n}\nfunction normalizeSpanishNumbers(input) {\n  let text = String(input);\n  const number = '\\\\d{1,3}(?:\\\\.\\\\d{3})+|\\\\d+(?:,\\\\d+)?';\n  const range = new RegExp('(' + number + ')\\\\s*[-–—]\\\\s*(' + number + ')\\\\s*%', 'g');\n  text = text.replace(range, (_, a, b) => spanishNumber(a) + ' a ' + spanishNumber(b) + ' por ciento');\n  text = text.replace(new RegExp('(' + number + ')\\\\s*%', 'g'), (_, n) => spanishNumber(n) + ' por ciento');\n  const currencies = {\n    USD: ['dólar estadounidense', 'dólares estadounidenses'], EUR: ['euro', 'euros'], COP: ['peso colombiano', 'pesos colombianos'],\n    MXN: ['peso mexicano', 'pesos mexicanos'], ARS: ['peso argentino', 'pesos argentinos']\n  };\n  const moneyNumber = '\\\\d{1,3}(?:\\\\.\\\\d{3})+|\\\\d+(?:[.,]\\\\d{1,2})?';\n  const money = (code, raw) => {\n    const names = currencies[code.toUpperCase()];\n    const thousands = /^\\d{1,3}(?:\\.\\d{3})+$/.test(raw);\n    const parts = raw.split(/[.,]/);\n    if (!thousands && parts.length === 2) {\n      const whole = Number(parts[0]), fraction = Number(parts[1]);\n      if (fraction === 0) return (whole === 1 ? 'un' : spanishInteger(whole)) + ' ' + (whole === 1 ? names[0] : names[1]);\n      if (whole === 0) {\n        const unit = code.toUpperCase() === 'USD' ? 'dólar' : names[0];\n        return spanishInteger(fraction) + ' ' + (fraction === 1 ? 'centavo' : 'centavos') + ' de ' + unit;\n      }\n      const unit = code.toUpperCase() === 'USD' ? (whole === 1 ? 'dólar' : 'dólares') : (whole === 1 ? names[0] : names[1]);\n      return (whole === 1 ? 'un' : spanishInteger(whole)) + ' ' + unit + ' con ' + spanishInteger(fraction);\n    }\n    const numeric = Number(raw.replace(/\\./g, '').replace(',', '.'));\n    return numeric === 1 ? 'un ' + names[0] : spanishNumber(raw) + ' ' + names[1];\n  };\n  text = text.replace(new RegExp('\\\\b(USD|EUR|COP|MXN|ARS)\\\\s+(' + moneyNumber + ')', 'gi'), (_, code, n) => money(code, n));\n  text = text.replace(new RegExp('(' + moneyNumber + ')\\\\s+(USD|EUR|COP|MXN|ARS)\\\\b', 'gi'), (_, n, code) => money(code, n));\n  text = text.replace(/\\b(USD|EUR|COP|MXN|ARS)\\b/gi, code => currencies[code.toUpperCase()][1]);\n  return text.replace(new RegExp('\\\\b(' + number + ')\\\\b', 'g'), (_, n) => spanishNumber(n));\n}\n\n// Narration glossary only; Ghost content remains unchanged.\n// Uppercase entries are case-sensitive; lowercase phrases are case-insensitive.\nconst GLOSSARY = {\n  DCA: 'Dollar Cost Averaging', TP: 'Take Profit', SL: 'Stop Loss', ATH: 'All Time High',\n  AT: 'Análisis Técnico', AF: 'Análisis Fundamental', KYC: 'Know Your Customer',\n  CC: 'Creative Commons', DYOR: 'Do Your Own Research', P2P: 'Peer to Peer',\n  FOMO: 'fomo', FUD: 'fud', HODL: 'hodl',\n  'bear market': 'mercado bajista', 'bull market': 'mercado alcista',\n  bullrun: 'mercado alcista', 'bull run': 'mercado alcista',\n  'cold storage': 'almacenamiento en frío',\n  'private keys': 'claves privadas', 'private key': 'clave privada',\n  wallets: 'billeteras', wallet: 'billetera', fees: 'comisiones', fee: 'comisión',\n  'market cap': 'capitalización de mercado', 'all time high': 'máximo histórico',\n  BTC: 'Bitcoin', ETH: 'Ether', SOL: 'Solana', TRX: 'Tron', XMR: 'Monero',\n  XNO: 'Nano', ZEC: 'Zcash', XRP: 'Ripple', DOGE: 'Dogecoin', LINK: 'Chainlink',\n  ADA: 'Cardano', XLM: 'Stellar', BCH: 'Bitcoin Cash', LTC: 'Litecoin',\n  NEAR: 'Near Protocol', UNI: 'Uniswap', ETC: 'Ethereum Classic', HBAR: 'Hedera',\n  ICP: 'Internet Computer', POL: 'Polygon', MATIC: 'Matic, hoy Polygon',\n  AAVE: 'Aave', MNT: 'Mantle', ATOM: 'Cosmos', ALGO: 'Algorand', KAS: 'Kaspa',\n  PAXG: 'Pax Gold', XAUT: 'Tether Gold', WOW: 'Wownero', BEAM: 'Beam', ZANO: 'Zano',\n  USDT: 'Tether', USDC: 'USD Coin'\n};\nconst glossaryTerms = Object.entries(GLOSSARY).sort(([a], [b]) => b.length - a.length);\nfunction applyGlossary(input) {\n  let text = String(input);\n  for (const [term, replacement] of glossaryTerms) {\n    const escaped = term.replace(/[.*+?^$(){}|[\\]\\\\]/g, '\\\\$&');\n    const flags = /^[A-Z0-9]+$/.test(term) ? 'gu' : 'giu';\n    const pattern = new RegExp('(?<![\\\\p{L}\\\\p{N}])' + escaped + '(?![\\\\p{L}])', flags);\n    text = text.replace(pattern, (match, offset, source) =>\n      replacement + (/\\d/.test(source[offset + match.length]) ? ' ' : ''));\n  }\n  return text.replace(/([\\p{L}]+(?: [\\p{L}]+)*) \\(\\1\\)/giu, '$1');\n}\n\n// Normalize only narration; Ghost content remains unchanged and fingerprints track spoken text.\nconst normalizeText = value => lang === 'es' ? applyGlossary(normalizeSpanishNumbers(value)) : value;\nconst normalizationSignature = [applyGlossary, normalizeSpanishNumbers, spanishNumber, spanishInteger].map(fn => fn.toString()).join('|') + JSON.stringify(GLOSSARY);\nconst text = normalizeText(rawText);\nconst card = lexical.root.children.find(n => n.type === 'audio' && String(n.src).startsWith(cfg.cdnBase));\nconst variants = lang === 'es' ? [\n  { key: 'mx', voice: cfg.voiceEsMx, qwenVoice: cfg.qwenVoiceEsMx, accent: 'Read entirely in native Mexican Spanish from Mexico City, with consistent seseo and no Castilian theta.' },\n  { key: 'co', voice: cfg.voiceEsCo, qwenVoice: cfg.qwenVoiceEsCo, accent: 'Read entirely in native Colombian Spanish from Bogotá, with consistent seseo and no Castilian theta.' },\n  { key: 'ar', voice: cfg.voiceEsAr, qwenVoice: cfg.qwenVoiceEsAr, accent: 'Read entirely in native Argentine Spanish from Buenos Aires, with natural Rioplatense intonation and soft sheísmo for y and ll, without exaggerating the accent.' }\n] : [\n  { key: 'transatlantic', voice: cfg.voiceEnTransatlantic, qwenVoice: cfg.qwenVoiceEnTransatlantic, accent: 'Read entirely in neutral international English with a restrained transatlantic accent: subtly British-influenced but not Received Pronunciation, regionally ambiguous, and lightly rhotic rather than American.' },\n  { key: 'canadian', voice: cfg.voiceEnCanadian, qwenVoice: cfg.qwenVoiceEnCanadian, accent: 'Read entirely in natural Canadian English from Toronto, with understated southern-Ontario pronunciation and no exaggerated Canadian mannerisms.' },\n  { key: 'pnw', voice: cfg.voiceEnPnw, qwenVoice: cfg.qwenVoiceEnPnw, accent: 'Read entirely in natural American English from the Pacific Northwest, with relaxed Seattle or Portland pronunciation and no New York, Boston, Southern, Texan, or exaggerated broadcaster accent.' }\n];\nlet voiceHash = 5381;\nfor (const c of String(post.id)) voiceHash = ((voiceHash * 33) ^ c.charCodeAt(0)) >>> 0;\nconst selected = variants[voiceHash % variants.length];\nconst narration = 'Sound like a compelling documentary narrator: firm, warm, self-possessed, intelligent, and quietly energetic. Begin with confident clarity, use brief natural rhetorical pauses after important ideas, vary emphasis instead of maintaining a uniform cadence, and finish with calm resolve. Keep human conversational warmth and avoid sounding like advertising, a newsreader, a motivational speaker, or theatrical acting.';\nconst style = selected.accent + ' ' + narration;\nconst title = lang === 'es' ? cfg.titleEs : cfg.titleEn;\nconst synthesisSignature = JSON.stringify({ planning: 'semantic-v2', model: cfg.qwenModel, qwenVoice: selected.qwenVoice, geminiModel: cfg.ttsUrl, geminiVoice: selected.voice, style, normalization: normalizationSignature });\nlet h = 5381;\nfor (const c of text + '|' + synthesisSignature) h = ((h * 33) ^ c.charCodeAt(0)) >>> 0;\nconst fileBase = `${post.slug}-${h.toString(16).padStart(8, '0')}`;\nconst fileName = `${fileBase}.${cfg.audioExtension || 'wav'}`;\nconst qwenFileName = `${fileBase}.mp3`;\nconst manifestName = `${fileBase}.json`;\nconst upToDateCard = card && (card.src.endsWith('/' + fileName) || card.src.endsWith('/' + qwenFileName));\nif (upToDateCard && !refresh && cfg.event !== 'manual') return [];\nif (card && !refresh && !upToDateCard && cfg.event !== 'manual') {\n  const stale = lang === 'es' ? cfg.staleEs : cfg.staleEn;\n  return card.title === stale ? [] : [{ json: { action: 'stale', title: stale } }];\n}\nif (!card && !refresh && !['published', 'manual', 'backlog'].includes(cfg.event)) return [];\nconst splitLong = (s, max) => {\n  const out = [];\n  let rest = s.trim();\n  while (rest.length > max) {\n    let cut = rest.lastIndexOf(',', max - 1);\n    if (cut < max * 0.4) cut = rest.lastIndexOf(' ', max - 1);\n    if (cut <= 0) cut = max - 1;\n    out.push(rest.slice(0, cut + 1).trim());\n    rest = rest.slice(cut + 1).trim();\n  }\n  if (rest) out.push(rest);\n  return out;\n};\nconst chunks = [];\nfor (const semanticSection of sections) {\n  const sectionText = normalizeText(semanticSection.text);\n  let cur = '';\n  const pushCur = () => {\n    if (cur.trim()) chunks.push({ text: cur.trim(), anchor: semanticSection.anchor });\n    cur = '';\n  };\n  for (const s of sectionText.match(/[^.!?…]+(?:[.!?…]+[\"'»”)]*|$)\\s*/g) || []) {\n    if (s.length > cfg.chunkChars) {\n      pushCur();\n      for (const piece of splitLong(s, cfg.chunkChars)) chunks.push({ text: piece, anchor: semanticSection.anchor });\n      continue;\n    }\n    if (cur && (cur + s).length > cfg.chunkChars) pushCur();\n    cur += s;\n  }\n  pushCur();\n}\nconst chunkSignature = JSON.stringify({ provider: 'qwen', model: cfg.qwenModel, voice: selected.qwenVoice, style, normalization: normalizationSignature, format: 'mp3', sampleRate: 24000, seed: 42 });\nreturn chunks.map((chunk, chunkIndex) => {\n  let chunkHash = 5381;\n  for (const c of chunk.text + '|' + chunkSignature) chunkHash = ((chunkHash * 33) ^ c.charCodeAt(0)) >>> 0;\n  const chunkFileName = `${post.slug}-${chunkHash.toString(16).padStart(8, '0')}.mp3`;\n  return { json: { action: 'generate', text: chunk.text, anchor: chunk.anchor, chunkIndex, chunkFileName, fileBase, manifestName, voice: selected.voice, qwenVoice: selected.qwenVoice, voiceVariant: selected.key, language: lang, style, qwenInstruction: style, title, fileName, refresh, existingDuration: card?.duration || 0 } };\n});"
+      },
+      "id": "b902f859-3893-42ff-b341-14235028e2a2",
+      "name": "Plan Audio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "142463fc-7357-42b9-ab3d-d4d0a1d3fcdc",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "generate",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a16bb74e-9cc5-4003-9246-380538b39817",
+      "name": "New Audio?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1104,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Settings').first().json.ttsUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpTemplatedCustomAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [{ role: 'user', parts: [{ text: $json.text, speechMetadata: { style: $json.style } }] }], generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: $json.voice } } } } }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
+          },
+          "timeout": 180000
+        }
+      },
+      "id": "f843ffb2-a419-4a66-a710-10c505f2a82e",
+      "name": "gemini-tts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1984,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "httpTemplatedCustomAuth": {
+          "id": "SaBp2JC0hkgdKNU4",
+          "name": "litellm-audio-pathsallowed-apikey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().sort((a, b) => a.json.chunkIndex - b.json.chunkIndex);\nconst parseWav = (buf) => {\n  if (buf.length < 44 || buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WAVE') throw new Error('Invalid WAV chunk');\n  let offset = 12;\n  let fmt;\n  let data;\n  while (offset + 8 <= buf.length) {\n    const id = buf.toString('ascii', offset, offset + 4);\n    const size = buf.readUInt32LE(offset + 4);\n    const start = offset + 8;\n    if (start + size > buf.length) throw new Error('Truncated WAV chunk');\n    if (id === 'fmt ') fmt = buf.subarray(start, start + size);\n    if (id === 'data') data = buf.subarray(start, start + size);\n    offset = start + size + (size % 2);\n  }\n  if (!fmt || !data || fmt.length < 16) throw new Error('WAV fmt/data chunk missing');\n  return {\n    audioFormat: fmt.readUInt16LE(0), channels: fmt.readUInt16LE(2),\n    sampleRate: fmt.readUInt32LE(4), byteRate: fmt.readUInt32LE(8),\n    blockAlign: fmt.readUInt16LE(12), bitsPerSample: fmt.readUInt16LE(14), data\n  };\n};\nconst waves = [];\nfor (let i = 0; i < items.length; i++) waves.push(parseWav(await this.helpers.getBinaryDataBuffer(i, 'data')));\nif (!waves.length) throw new Error('No WAV chunks to join');\nconst first = waves[0];\nfor (const wave of waves) {\n  if (wave.audioFormat !== 1 || wave.channels !== first.channels || wave.sampleRate !== first.sampleRate || wave.bitsPerSample !== first.bitsPerSample) {\n    throw new Error('Incompatible WAV formats');\n  }\n}\nconst pcm = Buffer.concat(waves.map(w => w.data));\nconst header = Buffer.alloc(44);\nheader.write('RIFF', 0); header.writeUInt32LE(36 + pcm.length, 4); header.write('WAVE', 8);\nheader.write('fmt ', 12); header.writeUInt32LE(16, 16); header.writeUInt16LE(first.audioFormat, 20);\nheader.writeUInt16LE(first.channels, 22); header.writeUInt32LE(first.sampleRate, 24);\nheader.writeUInt32LE(first.byteRate, 28); header.writeUInt16LE(first.blockAlign, 32);\nheader.writeUInt16LE(first.bitsPerSample, 34); header.write('data', 36); header.writeUInt32LE(pcm.length, 40);\nconst audio = Buffer.concat([header, pcm]);\nconst fileName = $('Plan Audio').first().json.fileName;\nconst duration = first.byteRate ? Math.round(pcm.length / first.byteRate) : 0;\nlet cursor = 0;\nconst cues = items.map((item, i) => {\n  const chunkDuration = first.byteRate ? waves[i].data.length / first.byteRate : 0;\n  const cue = { start: Number(cursor.toFixed(3)), end: Number((cursor + chunkDuration).toFixed(3)), anchor: item.json.anchor };\n  cursor += chunkDuration;\n  return cue;\n});\nconst plan = $('Plan Audio').first().json;\nreturn [{ json: { fileName, duration, mimeType: 'audio/wav', manifestName: plan.manifestName, cues }, binary: { data: await this.helpers.prepareBinaryData(audio, fileName, 'audio/wav') } }];"
+      },
+      "id": "7cdb9f92-4f2f-4687-b6fc-2f3d4c4924fa",
+      "name": "join-gemini-wav",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2432,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpTemplatedCustomAuth",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "593ddbd2-d68d-4028-b097-5aaf56396ecd",
+      "name": "Upload to Bunny",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2880,
+        -240
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "httpTemplatedCustomAuth": {
+          "id": "AfQQiJmsLPQUQKup",
+          "name": "bunny-storage-audio-apikey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/slug/{{ $('Settings').first().json.slug }}/?formats=lexical&include=tags",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "ghostAdminApi",
+        "options": {}
+      },
+      "id": "0a3c8ba8-8c4d-4b8f-bba9-b067a905d057",
+      "name": "Get Latest Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3104,
+        368
+      ],
+      "credentials": {
+        "ghostAdminApi": {
+          "id": "1A8x4AjzoI4VhxKp",
+          "name": "nautas-ghost-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const cfg = $('Settings').first().json;\nconst plan = $('Plan Audio').first().json;\nconst post = $input.first().json.posts[0];\nconst lexical = JSON.parse(post.lexical);\nconst root = lexical.root.children;\nconst at = root.findIndex(n => n.type === 'audio' && String(n.src).startsWith(cfg.cdnBase));\n\nif (plan.action === 'stale') {\n  if (at < 0) return [];\n  root[at].title = plan.title;\n} else {\n  const audio = $('prepare-audio-upload').first().json;\n  const card = { type: 'audio', version: 1, src: `${cfg.cdnBase}/${cfg.audioDir}/${audio.fileName}`, title: plan.title, duration: audio.duration, mimeType: audio.mimeType, thumbnailSrc: '' };\n  if (at < 0) root.unshift(card); else root[at] = card;\n}\n\n// updated_at comes from a fresh read, so edits made while audio was generating are kept, not overwritten\nconst update = { lexical: JSON.stringify(lexical), updated_at: post.updated_at };\nif (post.tags.some(t => t.slug === 'hash-audio-refresh')) update.tags = post.tags.filter(t => t.slug !== 'hash-audio-refresh').map(t => ({ id: t.id }));\nreturn [{ json: { id: post.id, body: { posts: [update] } } }];\n"
+      },
+      "id": "98d76878-280a-429c-946e-dc8106bdb754",
+      "name": "Write Audio Card",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3328,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $('Settings').first().json.ghostUrl }}/ghost/api/admin/posts/{{ $json.id }}/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "ghostAdminApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "6f241f81-9afa-4db5-8bce-c38381e593d4",
+      "name": "Update Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3552,
+        368
+      ],
+      "credentials": {
+        "ghostAdminApi": {
+          "id": "1A8x4AjzoI4VhxKp",
+          "name": "nautas-ghost-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Setup\n1. **Settings**: six Gemini and six Qwen voice IDs, LiteLLM endpoints, Bunny storage and CDN URLs. Check ghostUrl.\n2. Credentials (Templated Custom Auth): **qwen-tts** and **gemini-tts** use {\"headers\":{\"Authorization\":\"Bearer {{api_key}}\"}}. **Upload to Bunny** uses {\"headers\":{\"AccessKey\":\"{{api_key}}\"}} with the storage-zone password.\n3. Qwen is primary and returns MP3. A quota/allocation/balance error regenerates the complete article in Gemini WAV; other Qwen errors stop the workflow. Mixed MP3/WAV chunks are never joined.\n4. Ghost Admin webhooks: Post published and Published post updated → production URL of **Ghost Webhook**, with event=published or event=edited and the configured shared secret. Manual Test bypasses validation.\n5. Tags: #audio opts in; #audio-refresh regenerates; #lang-es or an -es slug selects Spanish. Voice remains stable through hash(post.id).\n\nBefore synthesis, one HEAD request checks the deterministic Qwen MP3 URL. Existing files skip TTS and Bunny, then update only the Ghost card; #audio-refresh bypasses this check and versions the URL from the previous card to avoid stale CDN/browser audio. Both .mp3 and .wav cards are recognized as current.\n\nTest one published post first: set its slug in **Test Post**, bind LiteLLM/Bunny credentials, run **Manual Test**, then inspect the audio card and CDN. Existing published posts require a separate controlled backlog run; webhooks only cover future events.",
+        "height": 740,
+        "width": 900
+      },
+      "id": "e0a35b87-fd4e-44b1-bbd0-57b005dd6c85",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst out = [];\nfor (let i = 0; i < items.length; i++) {\n  const response = items[i].json;\n  const parts = response.candidates?.[0]?.content?.parts || [];\n  const blob = parts.map(p => p.inlineData || p.inline_data).find(Boolean);\n  if (!blob?.data) {\n    const reason = response.promptFeedback?.blockReason || response.prompt_feedback?.block_reason || 'No audio returned';\n    throw new Error('Gemini TTS: ' + reason);\n  }\n  const audio = Buffer.from(blob.data, 'base64');\n  if (audio.length < 44 || audio.toString('ascii', 0, 4) !== 'RIFF' || audio.toString('ascii', 8, 12) !== 'WAVE') {\n    throw new Error('Gemini TTS returned invalid WAV data');\n  }\n  out.push({\n    json: { mimeType: blob.mimeType || blob.mime_type || 'audio/wav', chunkIndex: response.chunkIndex, anchor: response.anchor, fileBase: response.fileBase, manifestName: response.manifestName },\n    binary: { data: await this.helpers.prepareBinaryData(audio, 'chunk-' + (i + 1) + '.wav', 'audio/wav') },\n    pairedItem: { item: i }\n  });\n}\nreturn out;"
+      },
+      "id": "dfa09eab-c3a0-4770-aa7c-a375256d3256",
+      "name": "Decode WAV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2208,
+        160
+      ],
+      "notes": "Why Code: Gemini returns base64 WAV inside JSON; native nodes cannot validate and decode all chunks into binary data in one step."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Settings').first().json.qwenTtsUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpTemplatedCustomAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { model: $('Settings').first().json.qwenModel, input: { text: $json.text, voice: $json.qwenVoice, format: 'mp3', sample_rate: 24000, language_hints: [$json.language], instruction: $json.qwenInstruction, seed: 42 } } }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
+          },
+          "timeout": 240000
+        }
+      },
+      "id": "25b16858-d8ad-4a5a-aa9c-90def2ffd513",
+      "name": "qwen-tts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2208,
+        -400
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "httpTemplatedCustomAuth": {
+          "id": "SaBp2JC0hkgdKNU4",
+          "name": "litellm-audio-pathsallowed-apikey"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.output.audio.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": 120000
+        }
+      },
+      "id": "207b8826-3e44-479b-b422-c9be38578814",
+      "name": "download-qwen-mp3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2432,
+        -480
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "qwen-quota-0",
+              "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+              "rightValue": "quota",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "qwen-quota-1",
+              "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+              "rightValue": "AllocationQuota",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "qwen-quota-2",
+              "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+              "rightValue": "free tier",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "qwen-quota-3",
+              "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+              "rightValue": "insufficient balance",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "qwen-quota-4",
+              "leftValue": "={{ JSON.stringify($json.error ?? '') }}",
+              "rightValue": "arrearage",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ]
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "id": "921f50ff-925c-4590-b434-458bfa5e07bd",
+      "name": "qwen-quota-exhausted?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2432,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// A mid-article quota failure restarts every chunk in Gemini to avoid mixed audio formats.\nreturn $('Plan Audio').all().map(item => ({ json: { ...item.json, fallbackFromQwen: true }, pairedItem: item.pairedItem }));"
+      },
+      "id": "b19bc11d-3eec-4b7f-92f1-d2c7dd43187b",
+      "name": "restore-gemini-plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -240
+      ],
+      "notes": "Why Code: restores all Plan Audio chunks after quota exhaustion so Gemini regenerates a complete, format-consistent article."
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ 'Qwen TTS failed with a non-quota error: ' + JSON.stringify($json) }}"
+      },
+      "id": "37b4b1b3-fc3d-4bae-963b-0de5478f86b9",
+      "name": "stop-non-quota-error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2656,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map((item, index) => ({ item, index })).sort((a, b) => a.item.json.chunkIndex - b.item.json.chunkIndex);\nconst stripId3v2 = (buf) => {\n  let offset = 0;\n  while (offset + 10 <= buf.length && buf.toString('ascii', offset, offset + 3) === 'ID3') {\n    const size = ((buf[offset + 6] & 0x7f) << 21) | ((buf[offset + 7] & 0x7f) << 14) | ((buf[offset + 8] & 0x7f) << 7) | (buf[offset + 9] & 0x7f);\n    const footer = (buf[offset + 5] & 0x10) ? 10 : 0;\n    offset += 10 + size + footer;\n  }\n  if (offset >= buf.length) throw new Error('Invalid MP3 chunk');\n  return buf.subarray(offset);\n};\nconst chunks = [];\nconst cues = [];\nlet cursor = 0;\nfor (const entry of items) {\n  const buf = stripId3v2(await this.helpers.getBinaryDataBuffer(entry.index, 'data'));\n  if (buf.length < 2 || buf[0] !== 0xff || (buf[1] & 0xe0) !== 0xe0) throw new Error('Qwen returned invalid MP3 data');\n  chunks.push(buf);\n  const chunkDuration = buf.length * 8 / 160000;\n  cues.push({ start: Number(cursor.toFixed(3)), end: Number((cursor + chunkDuration).toFixed(3)), anchor: entry.item.json.anchor });\n  cursor += chunkDuration;\n}\nif (!chunks.length) throw new Error('No MP3 chunks to join');\nconst audio = Buffer.concat(chunks);\nconst plan = $('Plan Audio').first().json;\nconst fileName = plan.fileBase + '.mp3';\nconst duration = Math.round(cursor);\nreturn [{ json: { fileName, duration, mimeType: 'audio/mpeg', provider: 'qwen', manifestName: plan.manifestName, cues }, binary: { data: await this.helpers.prepareBinaryData(audio, fileName, 'audio/mpeg') } }];"
+      },
+      "id": "91b945f5-77b7-463a-8625-a26cb40c6108",
+      "name": "join-qwen-mp3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -480
+      ],
+      "notes": "Why Code: strips ID3v2 headers and safely concatenates independently encoded Qwen MP3 chunks."
+    },
+    {
+      "parameters": {},
+      "id": "d60f952c-f251-41f4-99d6-e79d4806ac0e",
+      "name": "prepare-audio-upload",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2656,
+        -400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c8939476-9778-4c15-a4cd-1d000d9182c0",
+      "name": "first-chunk",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName.replace(/\\.[^.]+$/, '.mp3') }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "id": "7fe5aded-f03f-4194-be36-b7b500880ea3",
+      "name": "check-existing-audio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1552,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "existing-audio",
+              "leftValue": "={{ $json.statusCode === 200 && !$('Plan Audio').first().json.refresh && $('Settings').first().json.event !== 'manual' ? 'yes' : 'no' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "beb1ac15-787a-4c2d-867e-a03ae8d314db",
+      "name": "audio-exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $('Plan Audio').all();"
+      },
+      "id": "64c2fe44-103f-4bba-865c-dbe8aa04779b",
+      "name": "restore-generation-plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1984,
+        -160
+      ],
+      "notes": "Why Code: restores all chunks after the single-item CDN existence check."
+    },
+    {
+      "parameters": {
+        "jsCode": "const plan = $('Plan Audio').first().json;\nconst response = $('check-existing-audio').first().json;\nconst fileName = plan.fileName.replace(/\\.[^.]+$/, '.mp3');\nconst bytes = Number(response.headers?.['content-length'] || 0);\nconst duration = plan.existingDuration || (bytes ? Math.round(bytes * 8 / 160000) : 0);\nreturn [{ json: { fileName, duration, mimeType: 'audio/mpeg', provider: 'existing' } }];"
+      },
+      "id": "084a6b79-da06-4ec6-887b-0c9a345b3e05",
+      "name": "use-existing-audio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2432,
+        -128
+      ],
+      "notes": "Why Code: constructs Ghost card metadata from an existing CDN object without synthesizing or uploading audio."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "upload-required",
+              "leftValue": "={{ $json.provider === 'existing' ? 'no' : 'yes' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5ab6a787-04ea-4e06-bacc-863a13b8d04b",
+      "name": "upload-required?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2656,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ed96d243-8de1-4e15-9507-e5bd0fc88f3c",
+      "name": "chunk-loop",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1984,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $json.chunkFileName }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "id": "ce801b0f-f7d8-4ea3-bc9e-7960c0affaa3",
+      "name": "check-chunk-audio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2208,
+        -640
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "chunk-exists",
+              "leftValue": "={{ $json.statusCode === 200 ? 'yes' : 'no' }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "47335839-5ca5-478f-9932-c4f1cf5f0bd0",
+      "name": "chunk-exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2432,
+        -720
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "4f0bef3a-a93f-43ca-b937-7abcb7d4c4ab",
+      "name": "chunk-ready",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $('chunk-loop').first().json.chunkFileName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpTemplatedCustomAuth",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "86b5c34b-8294-4fe5-b5c6-cb8b2cce58f6",
+      "name": "upload-chunk",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2656,
+        -560
+      ],
+      "credentials": {
+        "httpTemplatedCustomAuth": {
+          "id": "AfQQiJmsLPQUQKup",
+          "name": "bunny-storage-audio-apikey"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "6a1d0592-6f44-4884-8ca0-834bde8b1059",
+      "name": "chunk-loop-done",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        -960
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $('Plan Audio').all();"
+      },
+      "id": "067185e5-49b4-4cc9-958a-538dc9ca4806",
+      "name": "restore-cached-plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2432,
+        -960
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Settings').first().json.cdnBase }}/{{ $('Settings').first().json.audioDir }}/chunks/{{ $json.chunkFileName }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": 120000
+        }
+      },
+      "id": "bb06d0e7-8baf-4d72-9583-bafdde17915f",
+      "name": "download-cached-chunks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        2656,
+        -960
+      ]
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "7859d18b-dc5d-403d-9d5a-d230509ad775",
+      "name": "backlog-trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const audio = $('prepare-audio-upload').first().json;\nif (!audio.manifestName || !Array.isArray(audio.cues)) throw new Error('Missing audio manifest metadata');\nconst manifest = JSON.stringify({ version: 1, audio: audio.fileName, duration: audio.duration, cues: audio.cues });\nconst data = Buffer.from(manifest, 'utf8');\nreturn [{ json: { fileName: audio.manifestName, mimeType: 'application/json' }, binary: { data: await this.helpers.prepareBinaryData(data, audio.manifestName, 'application/json') } }];"
+      },
+      "id": "49249583-3582-4713-8ff9-6c245ff19ad8",
+      "name": "prepare-manifest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3104,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $('Settings').first().json.bunnyStorageUrl }}/{{ $('Settings').first().json.audioDir }}/{{ $json.fileName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpTemplatedCustomAuth",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "76c8f8b9-1adf-4a0b-a32c-b04b66e0e30d",
+      "name": "upload-manifest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        3328,
+        -240
+      ],
+      "credentials": {
+        "httpTemplatedCustomAuth": {
+          "id": "AfQQiJmsLPQUQKup",
+          "name": "bunny-storage-audio-apikey"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const current = $('chunk-loop').first().json;\nconst response = $input.first().json;\nreturn [{ json: { ...current, cacheStatus: response.statusCode } }];"
+      },
+      "id": "557a69a4-f8e9-4f83-b1dd-d90ba8763c73",
+      "name": "restore-chunk-request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const current = $('chunk-loop').first().json;\nreturn [{ json: { ...current, ...$input.first().json } }];"
+      },
+      "id": "383787be-37e0-4877-a8c3-dde77fda5862",
+      "name": "restore-qwen-response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const plan = $('restore-cached-plan').item.json;\nreturn { json: { ...plan }, binary: $input.item.binary };"
+      },
+      "id": "27cec617-48b4-431e-a345-2dfe17f1d683",
+      "name": "restore-cached-download-metadata",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        -960
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const plan = $('restore-gemini-plan').item.json;\nreturn { json: { ...plan, ...$input.item.json } }; "
+      },
+      "id": "1b0e992f-951d-40bb-b3fb-5ecc89144634",
+      "name": "restore-gemini-response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        160
+      ]
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "errorWorkflow": "6YeRd2MBpoIleUlj"
+  },
+  "shared": [
+    {
+      "role": "workflow:owner",
+      "workflowId": "F6VXxRCdbTYba3ME",
+      "projectId": "HXLppsMA2lbH4F4C",
+      "createdAt": "2026-08-16T03:40:41.280Z",
+      "updatedAt": "2026-08-16T03:40:41.280Z"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "id": "t971t28GAunyX7gw",
+      "name": "ghost",
+      "createdAt": "2026-07-19T15:29:32.896Z",
+      "updatedAt": "2026-07-19T15:29:32.896Z"
+    },
+    {
+      "id": "zteglN9EqJ3nhEv6",
+      "name": "AI",
+      "createdAt": "2026-02-25T07:28:36.855Z",
+      "updatedAt": "2026-02-25T07:28:36.855Z"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-11-19T04:52:49.830Z",
+  "versionId": "c3e0be82-9c46-4dd4-8975-0f71a32fb558"
+}
