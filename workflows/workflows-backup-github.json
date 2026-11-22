@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "750cd112-48c6-4e13-9282-daf2e7546b3e",
+    "versionId": "2de5dab7-4b76-4aa3-b46d-65f2cc07319d",
     "workflowId": "1lmEvob5q0TP8qoT",
     "nodes": [
       {
@@ -283,7 +283,7 @@
         ],
         "parameters": {
           "mode": "runOnceForAllItems",
-          "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
+          "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n    // The Chatwoot inbox identifier lets anyone post straight to the support inbox.\n    for (const a of node.parameters?.assignments?.assignments ?? []) {\n      if (a.name === \"inboxIdentifier\") a.value = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
         },
         "notes": "Why Code: deep-clean of every node in each workflow. Webhook paths act as passwords, so they never reach the public repo."
       },
@@ -517,13 +517,13 @@
     },
     "nodeGroups": [],
     "authors": "D C (via MCP)",
-    "name": "Redact activeVersion too, skip archived",
-    "description": "Updated nodes: Redact",
+    "name": "Redact Chatwoot inboxIdentifier from backups",
+    "description": "Security fix F4: the backup's Redact step now replaces Set assignments named inboxIdentifier with \"redacted\" so the Chatwoot inbox identifier is never pushed to the public GitHub repo.",
     "autosaved": false,
-    "createdAt": "2026-11-11T19:52:57.001Z",
-    "updatedAt": "2026-11-11T19:52:57.001Z"
+    "createdAt": "2026-11-22T00:48:14.748Z",
+    "updatedAt": "2026-11-22T00:48:14.748Z"
   },
-  "activeVersionId": "750cd112-48c6-4e13-9282-daf2e7546b3e",
+  "activeVersionId": "2de5dab7-4b76-4aa3-b46d-65f2cc07319d",
   "connections": {
     "new": {
       "main": [
@@ -1011,7 +1011,7 @@
       ],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
+        "jsCode": "// Webhook paths work as passwords: keep them out of the public backup.\nconst clean = (nodes) => {\n  for (const node of nodes ?? []) {\n    delete node.webhookId;\n    if (node.parameters && \"path\" in node.parameters) {\n      node.parameters.path = \"redacted\";\n    }\n    // The Chatwoot inbox identifier lets anyone post straight to the support inbox.\n    for (const a of node.parameters?.assignments?.assignments ?? []) {\n      if (a.name === \"inboxIdentifier\") a.value = \"redacted\";\n    }\n  }\n};\n\nreturn $input\n  .all()\n  .filter((item) => !item.json.isArchived)\n  .map((item) => {\n    const wf = JSON.parse(JSON.stringify(item.json));\n    delete wf.pinData;\n    clean(wf.nodes);\n    clean(wf.activeVersion?.nodes);\n    return { json: wf };\n  });"
       },
       "notes": "Why Code: deep-clean of every node in each workflow. Webhook paths act as passwords, so they never reach the public repo."
     },
@@ -1080,6 +1080,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-11-11T20:41:45.775Z",
-  "versionId": "750cd112-48c6-4e13-9282-daf2e7546b3e"
+  "updatedAt": "2026-11-22T00:48:14.745Z",
+  "versionId": "2de5dab7-4b76-4aa3-b46d-65f2cc07319d"
 }
