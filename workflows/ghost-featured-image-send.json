@@ -1,7 +1,7 @@
 {
   "active": true,
   "activeVersion": {
-    "versionId": "02a25687-1787-42f1-b80f-960d69972cd2",
+    "versionId": "1d4ea6d0-1230-4936-b2b4-daf2fb43702a",
     "workflowId": "8Ad7YALJ8uw43dGj",
     "nodes": [
       {
@@ -93,11 +93,10 @@
               {
                 "leftValue": "={{ $json.feature_image }}",
                 "operator": {
-                  "operation": "notEmpty",
                   "type": "string",
-                  "singleValue": true
+                  "operation": "regex"
                 },
-                "rightValue": ""
+                "rightValue": "^(?![\\s\\S]*(?:[/\\\\](?:\\.|%2[eE]){2}(?:[/\\\\?#]|$)|[\\t\\n\\r]))(https://criptonautas\\.co/content/images/|https://images\\.unsplash\\.com/)"
               },
               {
                 "leftValue": "={{ $json.slug }}",
@@ -166,6 +165,11 @@
             "response": {
               "response": {
                 "responseFormat": "file"
+              }
+            },
+            "redirect": {
+              "redirect": {
+                "followRedirects": false
               }
             }
           }
@@ -921,13 +925,13 @@
       }
     ],
     "authors": "D C (via MCP)",
-    "name": "Drop the exposed webhook URL",
-    "description": "Removed nodes: ghost-post-changed\nUpdated nodes: ghost-post-changed\nConnections: 0 added, 1 removed",
+    "name": "Allowlist feature_image hosts, no redirects",
+    "description": "Security fix F3 (SSRF): only Ghost-hosted (criptonautas.co/content/images/) or Unsplash covers pass the filter, dot-segment and control-character tricks are rejected, and download-original-image no longer follows redirects.",
     "autosaved": false,
-    "createdAt": "2026-11-12T00:57:44.871Z",
-    "updatedAt": "2026-11-12T00:57:44.871Z"
+    "createdAt": "2026-11-22T18:46:09.792Z",
+    "updatedAt": "2026-11-22T18:46:09.792Z"
   },
-  "activeVersionId": "02a25687-1787-42f1-b80f-960d69972cd2",
+  "activeVersionId": "1d4ea6d0-1230-4936-b2b4-daf2fb43702a",
   "connections": {
     "extract-post-fields": {
       "main": [
@@ -1236,11 +1240,10 @@
             {
               "leftValue": "={{ $json.feature_image }}",
               "operator": {
-                "operation": "notEmpty",
                 "type": "string",
-                "singleValue": true
+                "operation": "regex"
               },
-              "rightValue": ""
+              "rightValue": "^(?![\\s\\S]*(?:[/\\\\](?:\\.|%2[eE]){2}(?:[/\\\\?#]|$)|[\\t\\n\\r]))(https://criptonautas\\.co/content/images/|https://images\\.unsplash\\.com/)"
             },
             {
               "leftValue": "={{ $json.slug }}",
@@ -1309,6 +1312,11 @@
           "response": {
             "response": {
               "responseFormat": "file"
+            }
+          },
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
             }
           }
         }
@@ -1881,6 +1889,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-11-12T00:57:44.869Z",
-  "versionId": "02a25687-1787-42f1-b80f-960d69972cd2"
+  "updatedAt": "2026-11-22T18:46:09.782Z",
+  "versionId": "1d4ea6d0-1230-4936-b2b4-daf2fb43702a"
 }
